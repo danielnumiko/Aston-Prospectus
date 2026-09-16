@@ -598,14 +598,10 @@
         </div>
       </div>
       <div style="max-width: 1280px; margin: 0 auto; padding: var(--spacing-slice-margin) var(--spacing-gutters); display: flex; flex-direction: column; gap: var(--spacing-slice-margin);">
-        <div data-theme="orange" style="background: var(--secondary-bg); border: var(--borders-border-line) solid var(--primary-border); padding: var(--spacing-m); display: flex; flex-direction: column; gap: var(--spacing-base);">
-          <div style="display: flex; align-items: center; gap: var(--spacing-xs);">
-            <svg width="34" height="34" viewBox="0 0 24 24" aria-hidden="true" focusable="false" style="color: var(--interactive-strong); flex-shrink: 0;"><path d="M6 3h12v18l-6-4.6L6 21z" fill="currentColor"></path></svg>
-            <span style="font-size: var(--font-size-2xs); letter-spacing: 0.1em; text-transform: uppercase; color: var(--teaser-meta); font-weight: 500;">Keep it</span>
-          </div>
-          <h2 style="font-size: var(--font-size-2xl); font-weight: 600; color: var(--type-heading); line-height: 1.1; text-wrap: balance;">Save this page</h2>
-          <p style="font-size: var(--font-size-base); color: var(--type-body); line-height: 1.4; max-width: 56ch; text-wrap: pretty;">Bookmark it and your prospectus opens exactly as it is now &mdash; no questions to answer twice. Copy your link and it works on any device.</p>
-          <button data-flair type="button" onClick="{{ openShare }}" style="align-self: flex-start; display: flex; align-items: center; gap: var(--spacing-xs); min-height: 52px; padding: 0 var(--spacing-m); background: var(--btn-primary-bg); color: var(--btn-primary-text); border: var(--borders-border-line) solid var(--btn-primary-border); cursor: pointer; font-size: var(--font-size-s); font-weight: 500; transition: background 0.2s, color 0.2s;" data-btn="true" style-hover="background: var(--btn-hover-bg); color: var(--btn-hover-text); border-color: var(--btn-hover-border);"><span data-flair-shard aria-hidden="true"><span></span></span>Save or share this prospectus<span data-arrow-slide aria-hidden="true"><i></i><i></i></span></button>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: var(--spacing-base); text-align: center;">
+          <svg data-reveal="arrow" viewBox="0 0 61 60" aria-hidden="true" focusable="false" style="width: 54px; height: 54px; display: block; color: var(--interactive-strong);"><path d="M60.0293 31.1767L56.8453 27.8556L32.3918 53.3508V0H32.1682H27.8904H27.6668V53.3508L3.2133 27.8556L0.0292969 31.1767L27.6778 60H27.8904H32.1682H32.3808L60.0293 31.1767Z" fill="currentColor"></path></svg>
+          <h2 data-reveal="head" style="font-size: var(--font-size-5xl); font-weight: 600; line-height: 0.92; color: var(--type-heading); letter-spacing: -0.02em; max-width: 20ch; text-wrap: balance;">Welcome to<br><span style="color: var(--primary-accent);">Aston.</span></h2>
+          <p data-reveal="head" style="font-size: var(--font-size-base); color: var(--type-body); line-height: 1.45; max-width: 70%; text-wrap: pretty;">{{ welcomeIntro }}</p>
         </div>
         <ul data-reveal="up" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--spacing-base);">
           <sc-for list="{{ stats }}" as="s" hint-placeholder-count="3">
@@ -2859,6 +2855,7 @@ class Component extends DCLogic {
 
       homeHeading: name ? name + ', this one is yours.' : 'This one is yours.',
       homeBody: 'This prospectus has been built around ' + subj.name + ' at ' + levelWord + ' level, for ' + (isStudent ? 'a prospective ' + (intl ? 'international' : 'UK') + ' student' : p.userType === 'parent' ? 'a parent or guardian' : p.userType === 'agent' ? 'an agent partner in ' + p.country : 'a teacher or adviser') + ', starting ' + p.entryYear + '. Five sections, no course catalogue to wade through.',
+      welcomeIntro: 'Four sections from here: what you can study, where you would study it, life outside the timetable, and where it all leads. Everything is filtered to ' + subj.name + ' at ' + levelWord + ' level — change your answers at any point and it rebuilds around them.',
       homeVideoAlt: 'Why Aston? — campus film',
       openVideo: () => this.setState({ lightbox: { kind: 'video' } }),
       stats: this.STATS,
