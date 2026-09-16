@@ -801,7 +801,7 @@
           <h2 data-reveal="head" style="font-size: var(--font-size-5xl); font-weight: 600; line-height: 0.92; color: var(--type-heading); letter-spacing: -0.02em; max-width: 20ch; text-wrap: balance;">Campus</h2>
           <p data-reveal="head" style="font-size: var(--font-size-base); color: var(--type-body); line-height: 1.45; max-width: 70%; text-wrap: pretty;">One campus in the middle of Birmingham, where your lectures, labs, library and bed are all within a ten-minute walk of each other.</p>
           <div data-reveal="band" style="width: 100%; margin-top: var(--spacing-base); aspect-ratio: 16 / 7; overflow: hidden;">
-            <div role="img" aria-label="Design sketching in an Aston studio" style="width: 100%; height: 100%; background-image: {{ secImgbusiness }}; background-size: cover; background-position: center;"></div>
+            <div role="img" aria-label="{{ bandCampusAlt }}" style="width: 100%; height: 100%; background-image: {{ bandCampusCss }}; background-size: cover; background-position: center;"></div>
           </div>
         </div>
         </div>
@@ -917,7 +917,7 @@
       </div>
       <div style="position: relative; z-index: 1; background: var(--primary-bg);">
       <div data-reveal="band" style="width: calc(100% - 2 * var(--spacing-gutters)); max-width: 1280px; margin-left: auto; margin-right: auto; aspect-ratio: 16 / 7; overflow: hidden;">
-        <img alt="An audience listening at an Aston event" src="public/assets/img-lecture-audience.png" style="width: 100%; height: 100%; object-fit: cover; object-position: center 40%;">
+        <img alt="{{ bandLifeAlt }}" src="{{ bandLifeSrc }}" style="width: 100%; height: 100%; object-fit: cover; object-position: center 40%;">
       </div>
       <div style="max-width: 1280px; margin: 0 auto; padding: var(--spacing-m) var(--spacing-gutters) 0; display: flex; flex-direction: column; gap: var(--spacing-sm);">
         <h3 style="font-size: var(--font-size-4xl); font-weight: 600; line-height: 1.05; color: var(--type-heading); max-width: 70%; text-wrap: pretty;">One campus, in the middle of Birmingham</h3>
@@ -1112,7 +1112,7 @@
           <h2 data-reveal="head" style="font-size: var(--font-size-5xl); font-weight: 600; line-height: 0.92; color: var(--type-heading); letter-spacing: -0.02em; max-width: 20ch; text-wrap: balance;">Careers</h2>
           <p data-reveal="head" style="font-size: var(--font-size-base); color: var(--type-body); line-height: 1.45; max-width: 70%; text-wrap: pretty;">Our relentless focus on career development and integrated work placements is what sets Aston apart. From day one, you get the industry connections and support to turn your ambition into a career.</p>
           <div data-reveal="band" style="width: 100%; margin-top: var(--spacing-base); aspect-ratio: 16 / 7; overflow: hidden;">
-            <div role="img" aria-label="An Aston graduate at work on placement" style="width: 100%; height: 100%; background-image: {{ secImglab }}; background-size: cover; background-position: center;"></div>
+            <div role="img" aria-label="{{ bandCareersAlt }}" style="width: 100%; height: 100%; background-image: {{ bandCareersCss }}; background-size: cover; background-position: center;"></div>
           </div>
         </div>
         </div>
@@ -1448,7 +1448,7 @@ class Component extends DCLogic {
 
   SOCIAL_CAMPUS = [
     { platform: 'Shorts', title: 'Inside the Engineering Academy labs', meta: '0:48', img: 'makersWorkshop' },
-    { platform: 'Shorts', title: 'A lap of campus in one minute', meta: '1:02', img: 'campusSkyline' },
+    { platform: 'Shorts', title: 'A lap of campus in one minute', meta: '1:02', img: 'staircase' },
     { platform: 'Shorts', title: 'Every study spot in the Library, ranked', meta: '0:32', img: 'studySpace' },
     { platform: 'Shorts', title: 'Room tour: Aston Student Village', meta: '0:55', img: 'accom' },
     { platform: 'Shorts', title: 'What\u2019s actually in the Students\u2019 Union', meta: '0:41', img: 'lounge' }
@@ -2120,7 +2120,7 @@ class Component extends DCLogic {
   ];
 
   LIFE_STORIES = [
-    { title: 'My first week at Aston: what I wish I\u2019d known before starting university', kind: 'Student story', img: 'groupStudy' },
+    { title: 'My first week at Aston: what I wish I\u2019d known before starting university', kind: 'Student story', img: 'lectureLaptops' },
     { title: 'Living on campus: what Aston Student Village is really like', kind: 'Accommodation', img: 'accom' },
     { title: 'My favourite places to eat, shop and hang out in Birmingham', kind: 'Birmingham', img: 'campusSkyline' },
     { title: 'More than a degree: five things I got involved in at Aston', kind: 'Student life', img: 'presenting' }
@@ -2857,10 +2857,12 @@ class Component extends DCLogic {
       drawerPhase: st.drawerClosing ? 'closing' : 'open',
       navJustify: 'flex-start',
       navItemFlex: st.phone ? '0 0 auto' : '1 1 0%',
-      secImgseminar: 'url("' + this.IMG.labTeaching + '")',
-      secImgbusiness: 'url("' + this.IMG.sketching + '")',
-      secImgstudent: 'url("' + this.IMG.handsTogether + '")',
-      secImglab: 'url("' + this.IMG.conferenceTalk + '")',
+      bandCampusCss: 'url("' + this.IMG.campusSkyline + '")',
+      bandCampusAlt: this.IMG_ALT.campusSkyline,
+      bandLifeSrc: this.IMG.groupStudy,
+      bandLifeAlt: this.IMG_ALT.groupStudy,
+      bandCareersCss: 'url("' + this.IMG.graduation + '")',
+      bandCareersAlt: this.IMG_ALT.graduation,
       navGap: st.phone ? 'var(--spacing-base)' : '0px',
       navCol: st.wide ? '2' : '1 / -1',
       editChoices: () => this.setState({ screen: 'steps', step: 2, editing: true, prefsOpen: false, drawerOpen: false, lightbox: null }, () => { if (typeof window !== 'undefined') window.scrollTo(0, 0); }),
