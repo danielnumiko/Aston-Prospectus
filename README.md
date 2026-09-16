@@ -27,8 +27,9 @@ cd design && python3 -m http.server 8000
 Then open <http://localhost:8000/Aston%20Prospectus%20Preview.dc.html>.
 
 The preview gives you a mobile / tablet / desktop frame switcher, jumps to the Start,
-Form and Prospectus screens, and a Reset that clears the saved profile. Mobile is the
-primary design — most readers arrive by scanning a QR code.
+Form and Prospectus screens, and a Reset that clears the saved profile. It opens on
+desktop; your last choice is remembered per browser. Mobile is still the primary design
+— most readers arrive by scanning a QR code — so check it there too.
 
 ## Notes
 
