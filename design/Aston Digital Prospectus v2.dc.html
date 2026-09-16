@@ -215,7 +215,7 @@
   <sc-if value="{{ onLanding }}" hint-placeholder-val="{{ true }}">
   <div style="position: relative; flex: 1; display: flex; flex-direction: column; align-items: stretch; overflow: hidden;">
     <div style="position: {{ heroMediaPos }}; top: 0; left: 0; right: 0; bottom: {{ heroMediaBottom }}; height: {{ heroMediaH }}; min-height: {{ heroMediaMinH }}; max-height: {{ heroMediaMaxH }}; flex: {{ heroMediaFlex }}; overflow: hidden;">
-    <img data-ambient="true" alt="" src="public/assets/6c1e5c76cf7567eb342945fff1f1491ac82ac647.png" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: {{ ambientPhotoOpacity }}; animation: ambientDrift 28s ease-in-out infinite alternate; will-change: transform;">
+    <img data-ambient="true" alt="" src="public/assets/img-lab.png" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: {{ ambientPhotoOpacity }}; animation: ambientDrift 28s ease-in-out infinite alternate; will-change: transform;">
     <sc-if value="{{ hasAmbient }}" hint-placeholder-val="{{ false }}">
       <video data-ambient="true" ref="{{ ambientVideoRef }}" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.5; animation: ambientDrift 28s ease-in-out infinite alternate; will-change: transform;"></video>
     </sc-if>
@@ -583,7 +583,7 @@
 
     <section id="home" data-theme="white" data-screen-label="Welcome" style="scroll-margin-top: 118px; background: var(--primary-bg);">
       <div style="position: relative; min-height: min(76vh, 760px); display: flex; align-items: flex-end; overflow: hidden;">
-        <img alt="{{ homeVideoAlt }}" src="public/assets/6c1e5c76cf7567eb342945fff1f1491ac82ac647.png" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
+        <img alt="{{ homeVideoAlt }}" src="public/assets/img-lab.png" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
         <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(12,12,12,0.35) 0%, rgba(12,12,12,0.45) 24%, rgba(12,12,12,0.86) 52%, rgba(12,12,12,0.97) 78%, #0c0c0c 100%);"></div>
         <div data-theme="black" style="position: relative; width: 100%; max-width: 1280px; margin: 0 auto; padding: var(--spacing-l) var(--spacing-gutters); display: flex; flex-direction: column; gap: var(--spacing-base);">
           <div data-reveal="hero-eyebrow" style="display: flex; align-items: center; gap: var(--spacing-2xs);">
@@ -917,7 +917,7 @@
       </div>
       <div style="position: relative; z-index: 1; background: var(--primary-bg);">
       <div data-reveal="band" style="width: calc(100% - 2 * var(--spacing-gutters)); max-width: 1280px; margin-left: auto; margin-right: auto; aspect-ratio: 16 / 7; overflow: hidden;">
-        <img alt="An audience listening at an Aston event" src="public/assets/img-hands-together.png" style="width: 100%; height: 100%; object-fit: cover; object-position: center 40%;">
+        <img alt="An audience listening at an Aston event" src="public/assets/img-lecture-audience.png" style="width: 100%; height: 100%; object-fit: cover; object-position: center 40%;">
       </div>
       <div style="max-width: 1280px; margin: 0 auto; padding: var(--spacing-m) var(--spacing-gutters) 0; display: flex; flex-direction: column; gap: var(--spacing-sm);">
         <h3 style="font-size: var(--font-size-4xl); font-weight: 600; line-height: 1.05; color: var(--type-heading); max-width: 70%; text-wrap: pretty;">One campus, in the middle of Birmingham</h3>
@@ -1300,7 +1300,7 @@
     <sc-if value="{{ lbIsVideo }}" hint-placeholder-val="{{ false }}">
     <div style="display: flex; flex-direction: column;">
       <div style="position: relative; aspect-ratio: 16 / 9; background: #000000; display: flex; align-items: center; justify-content: center;">
-        <img alt="" src="public/assets/6c1e5c76cf7567eb342945fff1f1491ac82ac647.png" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.4;">
+        <img alt="" src="public/assets/img-lab.png" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.4;">
         <p style="position: relative; font-family: ui-monospace, Menlo, monospace; font-size: var(--font-size-s); color: var(--primary-accent); text-align: center; padding: var(--spacing-m);">Video embed slot — YouTube or Vimeo player, tagged by subject and study level</p>
       </div>
       <div style="padding: var(--spacing-m); display: flex; flex-direction: column; gap: var(--spacing-xs);">
@@ -1457,7 +1457,7 @@ class Component extends DCLogic {
   SOCIAL_LIFE = [
     { platform: 'TikTok', title: 'A day in my life at Aston', meta: '0:38', img: 'portraitW' },
     { platform: 'TikTok', title: 'Birmingham on a student budget', meta: '0:44', img: 'outreach' },
-    { platform: 'TikTok', title: 'Freshers\u2019 week, unfiltered', meta: '0:51', img: 'student' },
+    { platform: 'TikTok', title: 'Freshers\u2019 week, unfiltered', meta: '0:51', img: 'portraitW' },
     { platform: 'TikTok', title: 'Societies I joined in first year', meta: '0:47', img: 'handsTogether' },
     { platform: 'TikTok', title: 'Cooking in halls: honest review', meta: '0:29', img: 'accom' }
   ];
@@ -1554,41 +1554,41 @@ class Component extends DCLogic {
   SAME_SHOT = { optom: 'clinic', optomClinic: 'clinic', turbine: 'turbine', turbineBuild: 'turbine', robots: 'robotics', robotics: 'robotics', lasers: 'lasers', labLasers: 'lasers' };
 
   IMG = {
-    lab: 'public/assets/6c1e5c76cf7567eb342945fff1f1491ac82ac647.png',
-    business: 'public/assets/00aaedb859911b9bdbaa0c726615a16ed0d3a99b.png',
-    lasers: 'public/assets/15bf19ef5a134a7b26eca9cc8f0804f2b5b95bfc.png',
-    turbine: 'public/assets/8ac62ab2ecbb97992787c83246cc1eb193e54d1c.png',
-    robots: 'public/assets/7464a39b9b678b69e2f280c507d2dd121e17aeb9.png',
-    hearts: 'public/assets/72f0d3514373c9a3b11ee3e43f8eb01f5700df90.png',
-    optom: 'public/assets/8c4e84c2ced8e4a0b2cb845e2536b781a106bca2.png',
-    seminar: 'public/assets/b69ae82c7e91f776de3256686e5ba177df7e4874.png',
-    accom: 'public/assets/76228e03877cb9c0861b485c8e8d560a506e6042.png',
-    portraitW: 'public/assets/316bf7738dd793186e27160c01709b9603ba5657.png',
-    portraitM: 'public/assets/9b403fb64314cfbd2d81d14dc64a7c4a287e73b9.png',
-    student: 'public/assets/cb76c1e14d58e171505f77e9fe46af0aca8bb2d4.png',
-    formulaStudent: 'public/assets/img-bio-microscope.png',
-    bioMicroscope: 'public/assets/img-turbine-build.png',
+    lab: 'public/assets/img-lab.png',
+    business: 'public/assets/img-business.png',
+    lasers: 'public/assets/img-lasers.png',
+    turbine: 'public/assets/img-turbine.png',
+    robots: 'public/assets/img-robots.png',
+    hearts: 'public/assets/img-hearts.png',
+    optom: 'public/assets/img-optom.png',
+    seminar: 'public/assets/img-seminar.png',
+    accom: 'public/assets/img-accom.png',
+    portraitW: 'public/assets/img-portrait-w.png',
+    portraitM: 'public/assets/img-portrait-m.png',
+    student: 'public/assets/img-student.png',
+    formulaStudent: 'public/assets/img-formula-student.png',
+    bioMicroscope: 'public/assets/img-bio-microscope.png',
     productDesign: 'public/assets/img-product-design.png',
-    turbineBuild: 'public/assets/img-optometry-clinic.png',
+    turbineBuild: 'public/assets/img-turbine-build.png',
     robotics: 'public/assets/img-robotics.png',
-    optomClinic: 'public/assets/img-workshop-postits.png',
-    neuroscience: 'public/assets/img-formula-student.png',
-    dataAbstract: 'public/assets/img-lecture-audience.png',
-    windFarm: 'public/assets/img-sketching.png',
-    handsTogether: 'public/assets/img-lab-microscope.png',
-    portraitSport: 'public/assets/img-conference-talk.png',
-    makersWorkshop: 'public/assets/img-neuroscience.png',
-    labMicroscope: 'public/assets/img-data-abstract.png',
-    conferenceTalk: 'public/assets/img-wind-farm.png',
-    lectureAudience: 'public/assets/img-hands-together.png',
-    sketching: 'public/assets/img-portrait-sport.png',
-    labTeaching: 'public/assets/img-makers-workshop.png',
-    outreach: 'public/assets/img-lab-teaching.png',
-    parliament: 'public/assets/img-outreach.png',
+    optomClinic: 'public/assets/img-optom-clinic.png',
+    neuroscience: 'public/assets/img-neuroscience.png',
+    dataAbstract: 'public/assets/img-data-abstract.png',
+    windFarm: 'public/assets/img-wind-farm.png',
+    handsTogether: 'public/assets/img-hands-together.png',
+    portraitSport: 'public/assets/img-portrait-sport.png',
+    makersWorkshop: 'public/assets/img-makers-workshop.png',
+    labMicroscope: 'public/assets/img-lab-microscope.png',
+    conferenceTalk: 'public/assets/img-conference-talk.png',
+    lectureAudience: 'public/assets/img-lecture-audience.png',
+    sketching: 'public/assets/img-sketching.png',
+    labTeaching: 'public/assets/img-lab-teaching.png',
+    outreach: 'public/assets/img-outreach.png',
+    parliament: 'public/assets/img-parliament.png',
     labLasers: 'public/assets/img-lab-lasers.png',
     circuitboard: 'public/assets/img-circuitboard.png',
     dataWave: 'public/assets/img-data-wave.png',
-    workshopPostits: 'public/assets/img-strip-collage.png'
+    workshopPostits: 'public/assets/img-workshop-postits.png'
   };
 
   INTERESTS = [
@@ -1650,7 +1650,7 @@ class Component extends DCLogic {
       ] },
     { id: 'law', icon: '#ico-bank', name: 'Law', teaser: 'Rules, rights, and how any of it gets changed.', hero: 'parliament', heroAlt: 'A parliamentary debating chamber',
       accred: { by: 'Qualifying law degree', body: 'The LLB is a qualifying law degree, meeting the academic stage of training for the routes into practice as a solicitor or barrister.' },
-      tourName: 'Aston Law and the Main Building', stopImgs: ['parliament', 'seminar', 'conferenceTalk', 'student'],
+      tourName: 'Aston Law and the Main Building', stopImgs: ['parliament', 'seminar', 'conferenceTalk', 'portraitW'],
       stops: [
         { name: 'Moot court room', detail: 'Where advocacy is practised and competitions are held.' },
         { name: 'Law library collection', detail: 'Print and digital sources, plus legal database training.' },
@@ -1706,7 +1706,7 @@ class Component extends DCLogic {
       ] },
     { id: 'society-politics', icon: '#ico-world', name: 'Society & Politics', teaser: 'Power, people and the arguments that shape both.', hero: 'seminar', heroAlt: 'An Aston seminar in progress',
       accred: { by: 'Top 25 in the UK for career prospects', body: 'Our social science degrees are taught in a university ranked 2nd in England for impact on social mobility, with a placement year built into most courses.' },
-      tourName: 'Social sciences and the Main Building', stopImgs: ['seminar', 'lab', 'lectureAudience', 'student'],
+      tourName: 'Social sciences and the Main Building', stopImgs: ['seminar', 'lab', 'lectureAudience', 'portraitW'],
       stops: [
         { name: 'Seminar rooms', detail: 'Small-group teaching built around debate, not lectures.' },
         { name: 'Social research lab', detail: 'Survey, interview and data analysis training.' },
@@ -1747,7 +1747,7 @@ class Component extends DCLogic {
       stories: [
         { title: 'From the classroom to the workplace: my Accounting and Finance placement', kind: 'Placement year', img: 'seminar' },
         { title: 'Where can an Accounting and Finance degree take you?', kind: 'Careers', img: 'business' },
-        { title: 'Studying business in Birmingham as an international student', kind: 'International', img: 'student' }
+        { title: 'Studying business in Birmingham as an international student', kind: 'International', img: 'portraitW' }
       ] },
     { id: 'economics', interest: 'business-finance', name: 'Economics', chipLabel: 'Economics', short: 'economics',
       intro: 'Economics applied to the decisions firms and governments actually make \u2014 pricing, competition, regulation and policy \u2014 with the data skills employers ask for by name.',
@@ -1756,7 +1756,7 @@ class Component extends DCLogic {
         { title: 'Business Economics BSc (Hons)', ucas: 'L112', entry: 'BBB standard offer, BBC contextual offer', duration: '3 years, or 4 with integrated placement year', clearing: true, img: 'business', why: 'Economics as businesses use it. Strong quantitative core, applied throughout to real firm behaviour and market structure.' },
         { title: 'Economics & Finance BSc (Hons)', ucas: 'LN13', entry: 'BBB standard offer, BBC contextual offer', duration: '3 years, or 4 with integrated placement year', img: 'seminar', why: 'For people who want both the theory of markets and the mechanics of financial institutions.' },
         { title: 'Economics & Politics BSc (Hons)', ucas: 'LL12', entry: 'BBB standard offer, BBC contextual offer', duration: '3 years, or 4 with integrated placement year', img: 'seminar', why: 'Understand how economic policy is really made, and who it affects, from a campus in the heart of the second city.' },
-        { title: 'International Business & Economics BSc (Hons)', ucas: 'N120', entry: 'BBB standard offer, BBC contextual offer', duration: '3 years, or 4 with integrated placement year', img: 'student', why: 'Built for people who expect to work across borders. Optional year abroad, and a cohort from more than 120 countries.' }
+        { title: 'International Business & Economics BSc (Hons)', ucas: 'N120', entry: 'BBB standard offer, BBC contextual offer', duration: '3 years, or 4 with integrated placement year', img: 'portraitW', why: 'Built for people who expect to work across borders. Optional year abroad, and a cohort from more than 120 countries.' }
       ],
       foundation: [{ title: 'Economics Foundation Programme', ucas: 'L114', entry: 'CCC, or equivalent international qualifications', duration: '1 year, then progression to your degree', img: 'business', why: 'A year of subject grounding, academic English and project work, with guaranteed progression on successful completion.' }],
       stories: [
@@ -1768,7 +1768,7 @@ class Component extends DCLogic {
       webinar: 'Business and management subject webinar',
       courses: [
         { title: 'Business & Management BSc (Hons)', ucas: 'N200', entry: 'BBB standard offer, BBC contextual offer', duration: '3 years, or 4 with integrated placement year', clearing: true, img: 'business', why: 'A broad grounding in strategy, marketing, operations and people, with room to specialise as your interests sharpen.' },
-        { title: 'International Business & Management BSc (Hons)', ucas: 'N121', entry: 'BBB standard offer, BBC contextual offer', duration: '3 years, or 4 with integrated placement year', img: 'student', why: 'Management with an international core and an optional year abroad. Namitha\u2019s course.' },
+        { title: 'International Business & Management BSc (Hons)', ucas: 'N121', entry: 'BBB standard offer, BBC contextual offer', duration: '3 years, or 4 with integrated placement year', img: 'portraitW', why: 'Management with an international core and an optional year abroad. Namitha\u2019s course.' },
         { title: 'Business Computing and IT BSc (Hons)', ucas: 'G500', entry: 'BBB standard offer, BBC contextual offer', duration: '3 years, or 4 with integrated placement year', img: 'lasers', why: 'Business degree, technical spine. For people who want to lead digital change rather than watch it happen.' }
       ],
       foundation: [{ title: 'Business Foundation Programme', ucas: 'N201', entry: 'CCC, or equivalent international qualifications', duration: '1 year, then progression to your degree', img: 'business', why: 'Guaranteed progression onto your chosen business degree on successful completion.' }],
@@ -2079,12 +2079,12 @@ class Component extends DCLogic {
   ];
 
   CAMPUS = [
-    { name: 'The Library', detail: 'Open 24/7, with silent and group floors, borrowable laptops and study bikes.', img: 'seminar', href: 'https://www.aston.ac.uk/library' },
+    { name: 'The Library', detail: 'Open 24/7, with silent and group floors, borrowable laptops and study bikes.', img: 'business', href: 'https://www.aston.ac.uk/library' },
     { name: 'Aston Students\u2019 Union', detail: 'Run by students, for students. Over 140 clubs and societies, or start your own.', img: 'handsTogether', href: 'https://www.astonsu.com' },
     { name: 'Support and wellbeing', detail: 'Counselling, mental health advice, disability and neurodiversity support, in one place.', img: 'portraitW', href: 'https://www.aston.ac.uk/study/student-support' },
-    { name: 'Sport Aston', detail: 'Fully equipped gym, classes, badminton and squash courts, pool, sauna and steam room.', img: 'portraitSport', href: 'https://www.aston.ac.uk/sport' },
-    { name: 'Faith and chaplaincy', detail: 'Chaplains and a dedicated prayer space, for all religious backgrounds and none.', img: 'student', href: 'https://www.aston.ac.uk/study/student-support/chaplaincy' },
-    { name: 'Campus food', detail: 'The SU Lounge bar and restaurant, cafes across campus and a supermarket next door.', img: 'business', href: 'https://www.aston.ac.uk/campus' }
+    { name: 'Sport Aston', detail: 'Fully equipped gym, classes, badminton and squash courts, pool, sauna and steam room.', img: 'outreach', href: 'https://www.aston.ac.uk/sport' },
+    { name: 'Faith and chaplaincy', detail: 'Chaplains and a dedicated prayer space, for all religious backgrounds and none.', img: 'seminar', href: 'https://www.aston.ac.uk/study/student-support/chaplaincy' },
+    { name: 'Campus food', detail: 'The SU Lounge bar and restaurant, cafes across campus and a supermarket next door.', img: 'conferenceTalk', href: 'https://www.aston.ac.uk/campus' }
   ];
 
   BIRMINGHAM = [
@@ -2099,7 +2099,7 @@ class Component extends DCLogic {
   LIFE_STORIES = [
     { title: 'My first week at Aston: what I wish I\u2019d known before starting university', kind: 'Student story', img: 'portraitW' },
     { title: 'Living on campus: what Aston Student Village is really like', kind: 'Accommodation', img: 'accom' },
-    { title: 'My favourite places to eat, shop and hang out in Birmingham', kind: 'Birmingham', img: 'student' },
+    { title: 'My favourite places to eat, shop and hang out in Birmingham', kind: 'Birmingham', img: 'accom' },
     { title: 'More than a degree: five things I got involved in at Aston', kind: 'Student life', img: 'seminar' }
   ];
 
@@ -2934,7 +2934,7 @@ class Component extends DCLogic {
         { text: 'From \u00a3172.20 per week' },
         { text: 'All utility bills and high-speed internet included' },
         { text: 'Onsite laundry and onsite safety team' }
-      ].map((a, i) => ({ text: a.text, alt: a.text, imgCss: 'url("' + this.IMG[['accom', 'student', 'accom', 'portraitW', 'handsTogether'][i % 5]] + '")' })),
+      ].map((a, i) => ({ text: a.text, alt: a.text, imgCss: 'url("' + this.IMG[['accom', 'seminar', 'accom', 'portraitW', 'handsTogether'][i % 5]] + '")' })),
       accomCta: intl ? 'Accommodation for international students' : (ug ? 'Undergraduate accommodation' : 'Postgraduate accommodation'),
       campusCards: this.CAMPUS.map((c) => ({ name: c.name, detail: c.detail, imgCss: (this.IMG[c.img] ? 'url("' + this.IMG[c.img] + '")' : 'none'), alt: c.name + ' at Aston University', href: c.href })),
       birminghamPages: (() => { const ic = this.icoSet(this.BIRMINGHAM, (b) => b.name + ' ' + b.detail); return this.BIRMINGHAM.map((b, i) => ({ name: b.name, detail: b.detail, iconPaths: ic[i] })); })(),
@@ -2945,7 +2945,7 @@ class Component extends DCLogic {
       campusClips: this.SOCIAL_CAMPUS.map((v) => this.clip(v)),
       lifeClips: this.SOCIAL_LIFE.map((v) => this.clip(v)),
       costClips: [
-        { title: 'A week of food shopping in Birmingham', img: 'student' },
+        { title: 'A week of food shopping in Birmingham', img: 'portraitW' },
         { title: 'What I spend in a month at Aston', img: 'portraitM' },
         { title: 'Room tour: Aston Student Village', img: 'accom' }
       ].map((v) => ({ title: v.title, imgCss: (this.IMG[v.img] ? 'url("' + this.IMG[v.img] + '")' : 'none'), alt: v.title, open: () => this.setState({ lightbox: { kind: 'video' } }) })),
