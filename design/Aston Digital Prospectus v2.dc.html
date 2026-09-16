@@ -1448,16 +1448,16 @@ class Component extends DCLogic {
 
   SOCIAL_CAMPUS = [
     { platform: 'Shorts', title: 'Inside the Engineering Academy labs', meta: '0:48', img: 'makersWorkshop' },
-    { platform: 'Shorts', title: 'A lap of campus in one minute', meta: '1:02', img: 'lectureAudience' },
-    { platform: 'Shorts', title: 'Every study spot in the Library, ranked', meta: '0:32', img: 'labTeaching' },
+    { platform: 'Shorts', title: 'A lap of campus in one minute', meta: '1:02', img: 'campusSkyline' },
+    { platform: 'Shorts', title: 'Every study spot in the Library, ranked', meta: '0:32', img: 'studySpace' },
     { platform: 'Shorts', title: 'Room tour: Aston Student Village', meta: '0:55', img: 'accom' },
-    { platform: 'Shorts', title: 'What\u2019s actually in the Students\u2019 Union', meta: '0:41', img: 'handsTogether' }
+    { platform: 'Shorts', title: 'What\u2019s actually in the Students\u2019 Union', meta: '0:41', img: 'lounge' }
   ];
 
   SOCIAL_LIFE = [
     { platform: 'TikTok', title: 'A day in my life at Aston', meta: '0:38', img: 'portraitW' },
     { platform: 'TikTok', title: 'Birmingham on a student budget', meta: '0:44', img: 'outreach' },
-    { platform: 'TikTok', title: 'Freshers\u2019 week, unfiltered', meta: '0:51', img: 'portraitW' },
+    { platform: 'TikTok', title: 'Freshers\u2019 week, unfiltered', meta: '0:51', img: 'cohortEvent' },
     { platform: 'TikTok', title: 'Societies I joined in first year', meta: '0:47', img: 'handsTogether' },
     { platform: 'TikTok', title: 'Cooking in halls: honest review', meta: '0:29', img: 'accom' }
   ];
@@ -2957,7 +2957,7 @@ class Component extends DCLogic {
         { text: 'From \u00a3172.20 per week' },
         { text: 'All utility bills and high-speed internet included' },
         { text: 'Onsite laundry and onsite safety team' }
-      ].map((a, i) => ({ text: a.text, alt: a.text, imgCss: 'url("' + this.IMG[['accom', 'seminar', 'accom', 'portraitW', 'handsTogether'][i % 5]] + '")' })),
+      ].map((a, i) => ({ text: a.text, alt: a.text, imgCss: 'url("' + this.IMG[['accom', 'lounge', 'studySpace', 'portraitW', 'handsTogether'][i % 5]] + '")' })),
       accomCta: intl ? 'Accommodation for international students' : (ug ? 'Undergraduate accommodation' : 'Postgraduate accommodation'),
       campusCards: this.CAMPUS.map((c) => ({ name: c.name, detail: c.detail, imgCss: (this.IMG[c.img] ? 'url("' + this.IMG[c.img] + '")' : 'none'), alt: c.name + ' at Aston University', href: c.href })),
       birminghamPages: (() => { const ic = this.icoSet(this.BIRMINGHAM, (b) => b.name + ' ' + b.detail); return this.BIRMINGHAM.map((b, i) => ({ name: b.name, detail: b.detail, iconPaths: ic[i] })); })(),
@@ -2968,7 +2968,7 @@ class Component extends DCLogic {
       campusClips: this.SOCIAL_CAMPUS.map((v) => this.clip(v)),
       lifeClips: this.SOCIAL_LIFE.map((v) => this.clip(v)),
       costClips: [
-        { title: 'A week of food shopping in Birmingham', img: 'portraitW' },
+        { title: 'A week of food shopping in Birmingham', img: 'staircase' },
         { title: 'What I spend in a month at Aston', img: 'pgStudy' },
         { title: 'Room tour: Aston Student Village', img: 'accom' }
       ].map((v) => ({ title: v.title, imgCss: (this.IMG[v.img] ? 'url("' + this.IMG[v.img] + '")' : 'none'), alt: v.title, open: () => this.setState({ lightbox: { kind: 'video' } }) })),
