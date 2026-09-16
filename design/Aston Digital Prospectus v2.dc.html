@@ -293,7 +293,7 @@
         <p data-reveal="head" style="font-size: var(--font-size-base); color: var(--type-body); line-height: 1.45; max-width: 52ch; text-wrap: pretty;">{{ stepStandfirst }}</p>
         <sc-if value="{{ onStep1 }}" hint-placeholder-val="{{ true }}">
         <p data-reveal="head" style="font-size: var(--font-size-4xl); font-weight: 600; letter-spacing: -0.01em; color: var(--type-heading); line-height: 1.6; max-width: 26ch; margin-top: var(--spacing-xs); pointer-events: {{ detailsPointer }}; opacity: {{ detailsOpacity }}; text-wrap: pretty;">I am
-        <span data-inline><input type="text" value="{{ firstName }}" onInput="{{ setFirstName }}" size="{{ firstNameSize }}" autoComplete="given-name" placeholder="your name" aria-label="Your first name"></span>,
+        <span data-inline><input type="text" value="{{ firstName }}" onInput="{{ setFirstName }}" size="{{ firstNameSize }}" autoComplete="given-name" placeholder="name" aria-label="Your first name"></span>,
         <span data-inline data-select><span data-ghost aria-hidden="true">{{ userTypeLabel }}</span><select value="{{ userType }}" onChange="{{ setUserType }}" aria-label="Who this prospectus is for"><sc-for list="{{ audienceOptions }}" as="a" hint-placeholder-count="5"><option value="{{ a.value }}">{{ a.label }}</option></sc-for></select><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="3" fill="none"></path></svg></span>
         applying from
         <span data-inline data-select><span data-ghost aria-hidden="true">{{ countryLabel }}</span><select value="{{ country }}" onChange="{{ setCountry }}" aria-label="Where you are applying from"><optgroup label="UK and our key markets"><sc-for list="{{ coreMarkets }}" as="c" hint-placeholder-count="5"><option value="{{ c.value }}">{{ c.label }}</option></sc-for></optgroup><optgroup label="Elsewhere"><sc-for list="{{ otherMarkets }}" as="c" hint-placeholder-count="5"><option value="{{ c.value }}">{{ c.label }}</option></sc-for></optgroup></select><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="3" fill="none"></path></svg></span>
@@ -302,7 +302,7 @@
         study, starting
         <span data-inline data-select><span data-ghost aria-hidden="true">{{ entryYearLabel }}</span><select value="{{ entryYear }}" onChange="{{ setEntryYear }}" aria-label="When you plan to start"><sc-for list="{{ entryYears }}" as="y" hint-placeholder-count="4"><option value="{{ y.value }}">{{ y.label }}</option></sc-for></select><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="3" fill="none"></path></svg></span>.
         Send my prospectus to
-        <span data-inline><input type="email" value="{{ email }}" onInput="{{ setEmail }}" size="{{ emailSize }}" autoComplete="email" inputMode="email" placeholder="your email" aria-label="Your email address"></span>.
+        <span data-inline><input type="email" value="{{ email }}" onInput="{{ setEmail }}" size="{{ emailSize }}" autoComplete="email" inputMode="email" placeholder="email" aria-label="Your email address"></span>.
         </p>
         </sc-if>
       </div>
