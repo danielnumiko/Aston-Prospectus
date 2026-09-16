@@ -70,6 +70,11 @@
   [data-inline][data-select] > select { position: absolute; left: 0; top: 0; bottom: auto; width: 100%; min-width: 0; }
   [data-inline] > input, [data-inline] > select { font: inherit; color: var(--interactive); background: transparent; border: none; border-bottom: var(--borders-border-line) solid var(--btn-text-input-border); padding: 0 0 0.16em; margin: 0; line-height: 1.15; height: calc(1.31em + var(--borders-border-line)); box-sizing: border-box; border-radius: 0; outline-offset: 6px; max-width: 100%; transition: border-color 0.25s ease; }
   [data-inline] > select { appearance: none; -webkit-appearance: none; padding-right: 0.85em; cursor: pointer; white-space: nowrap; text-overflow: clip; }
+  /* The select inherits the display font so the sentence reads as one line of copy.
+     The native popup inherits it too, which makes the option list enormous — reset
+     the options back to a normal menu size without touching the closed control. */
+  [data-inline] > select option, [data-inline] > select optgroup { font-size: 16px; font-weight: 400; line-height: 1.4; }
+  [data-inline] > select optgroup { font-weight: 600; }
   [data-inline] > select, [data-inline] > input { vertical-align: baseline; }
   [data-inline] > input { field-sizing: content; box-sizing: border-box; min-width: 5ch; }
   [data-inline] > input::placeholder { color: var(--interactive); opacity: 0.55; }
