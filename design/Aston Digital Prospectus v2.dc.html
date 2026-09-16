@@ -1515,6 +1515,7 @@ class Component extends DCLogic {
   }
 
   IMG_ALT = {
+    labLasers: 'Laser equipment in an Aston research laboratory',
     lab: 'An Aston teaching laboratory',
     business: 'Students working together in Aston Business School',
     lasers: 'Laser optics on an Aston research bench',
@@ -1529,7 +1530,6 @@ class Component extends DCLogic {
     accom: 'Student accommodation',
     portraitW: 'An Aston student',
     portraitM: 'An Aston student',
-    student: 'An Aston student',
     formulaStudent: 'The Aston Formula Student car',
     bioMicroscope: 'A student at a microscope in an Aston bioscience lab',
     productDesign: 'Product design work in the Aston workshop',
@@ -1538,7 +1538,6 @@ class Component extends DCLogic {
     dataWave: 'Signal data from Aston photonics research',
     windFarm: 'Wind turbines, part of Aston energy research',
     handsTogether: 'Aston students working together',
-    portraitSport: 'An Aston student athlete',
     makersWorkshop: 'The Aston makerspace workshop',
     labMicroscope: 'A researcher at a bench microscope in an Aston lab',
     conferenceTalk: 'A talk at an Aston conference',
@@ -1548,7 +1547,20 @@ class Component extends DCLogic {
     outreach: 'An Aston outreach workshop',
     parliament: 'A parliamentary debating chamber',
     circuitboard: 'A circuit board built by Aston engineering students',
-    workshopPostits: 'A research workshop mapping ideas on a wall'
+    workshopPostits: 'A research workshop mapping ideas on a wall',
+    groupStudy: 'Aston students working together on a group project',
+    cohortEvent: 'Aston students at a university event',
+    pgStudy: 'A postgraduate student studying at Aston',
+    presenting: 'Aston students presenting their work',
+    studySpace: 'An open-plan study space on the Aston campus',
+    staircase: 'Aston students on campus between classes',
+    studentSupport: 'An Aston student talking to a support adviser',
+    lectureTheatre: 'A lecture in progress in an Aston lecture theatre',
+    campusSkyline: 'The Aston campus and the Birmingham skyline',
+    lounge: 'A student lounge on the Aston campus',
+    graduation: 'Aston graduates celebrating on graduation day',
+    lectureLaptops: 'Aston students during a lecture',
+    volunteering: 'Aston students volunteering',
   };
 
   SAME_SHOT = { optom: 'clinic', optomClinic: 'clinic', turbine: 'turbine', turbineBuild: 'turbine', robots: 'robotics', robotics: 'robotics', lasers: 'lasers', labLasers: 'lasers' };
@@ -1565,7 +1577,6 @@ class Component extends DCLogic {
     accom: 'public/assets/img-accom.png',
     portraitW: 'public/assets/img-portrait-w.png',
     portraitM: 'public/assets/img-portrait-m.png',
-    student: 'public/assets/img-student.png',
     formulaStudent: 'public/assets/img-formula-student.png',
     bioMicroscope: 'public/assets/img-bio-microscope.png',
     productDesign: 'public/assets/img-product-design.png',
@@ -1576,7 +1587,6 @@ class Component extends DCLogic {
     dataAbstract: 'public/assets/img-data-abstract.png',
     windFarm: 'public/assets/img-wind-farm.png',
     handsTogether: 'public/assets/img-hands-together.png',
-    portraitSport: 'public/assets/img-portrait-sport.png',
     makersWorkshop: 'public/assets/img-makers-workshop.png',
     labMicroscope: 'public/assets/img-lab-microscope.png',
     conferenceTalk: 'public/assets/img-conference-talk.png',
@@ -1588,13 +1598,26 @@ class Component extends DCLogic {
     labLasers: 'public/assets/img-lab-lasers.png',
     circuitboard: 'public/assets/img-circuitboard.png',
     dataWave: 'public/assets/img-data-wave.png',
-    workshopPostits: 'public/assets/img-workshop-postits.png'
+    workshopPostits: 'public/assets/img-workshop-postits.png',
+    groupStudy: 'public/assets/img-group-study.jpg',
+    cohortEvent: 'public/assets/img-cohort-event.png',
+    pgStudy: 'public/assets/img-pg-study.jpg',
+    presenting: 'public/assets/img-presenting.webp',
+    studySpace: 'public/assets/img-study-space.jpg',
+    staircase: 'public/assets/img-staircase.jpg',
+    studentSupport: 'public/assets/img-student-support.jpg',
+    lectureTheatre: 'public/assets/img-lecture-theatre.jpg',
+    campusSkyline: 'public/assets/img-campus-skyline.jpg',
+    lounge: 'public/assets/img-lounge.png',
+    graduation: 'public/assets/img-graduation.jpg',
+    lectureLaptops: 'public/assets/img-lecture-laptops.png',
+    volunteering: 'public/assets/img-volunteering.jpg',
   };
 
   INTERESTS = [
     { id: 'business-finance', icon: '#ico-money', name: 'Business & Finance', teaser: 'Markets, money, strategy and the people who run things.', hero: 'dataAbstract', heroAlt: 'Data visualisation from Aston research',
       accred: { by: 'AACSB, EQUIS and AMBA accredited', body: 'Aston Business School holds triple accreditation from AACSB, EQUIS and AMBA \u2014 held by fewer than one per cent of business schools worldwide.' },
-      tourName: 'Aston Business School', stopImgs: ['dataAbstract', 'workshopPostits', 'business', 'seminar'],
+      tourName: 'Aston Business School', stopImgs: ['dataAbstract', 'groupStudy', 'business', 'studySpace'],
       stops: [
         { name: 'Trading and analytics suite', detail: 'Professional market data terminals, used from first year.' },
         { name: 'Case study rooms', detail: 'Set up for group work, pitching and presentation practice.' },
@@ -1622,7 +1645,7 @@ class Component extends DCLogic {
       ] },
     { id: 'computing-ai', icon: '#ico-computer', name: 'Computing & AI', teaser: 'Software, security and the intelligence layer on top.', hero: 'circuitboard', heroAlt: 'A circuit board built by Aston engineering students',
       accred: { by: 'BCS, The Chartered Institute for IT', body: 'Our computing degrees are accredited by BCS, The Chartered Institute for IT, contributing towards Chartered IT Professional status after you graduate.' },
-      tourName: 'Computer science labs', stopImgs: ['circuitboard', 'dataWave', 'workshopPostits', 'seminar'],
+      tourName: 'Computer science labs', stopImgs: ['circuitboard', 'dataWave', 'groupStudy', 'studySpace'],
       stops: [
         { name: 'Computing labs', detail: 'Specialist hardware for networking, security and AI work.' },
         { name: 'Cybersecurity range', detail: 'Isolated environments for offensive and defensive practicals.' },
@@ -1636,7 +1659,7 @@ class Component extends DCLogic {
       ] },
     { id: 'psychology', icon: '#ico-group', name: 'Psychology', teaser: 'Why people behave the way they do, and what to do with that.', hero: 'neuroscience', heroAlt: 'Neuroscience research equipment at Aston',
       accred: { by: 'British Psychological Society accredited', body: 'Our psychology degrees are accredited by the British Psychological Society \u2014 the first step towards Chartered Psychologist status and professional training routes.' },
-      tourName: 'Psychology labs', stopImgs: ['neuroscience', 'robotics', 'lab', 'seminar'],
+      tourName: 'Psychology labs', stopImgs: ['neuroscience', 'robotics', 'lab', 'studySpace'],
       stops: [
         { name: 'Behavioural testing suites', detail: 'Soundproofed rooms for experimental work with participants.' },
         { name: 'Human-robot interaction lab', detail: 'Social cognition research meeting applied technology.' },
@@ -1650,7 +1673,7 @@ class Component extends DCLogic {
       ] },
     { id: 'law', icon: '#ico-bank', name: 'Law', teaser: 'Rules, rights, and how any of it gets changed.', hero: 'parliament', heroAlt: 'A parliamentary debating chamber',
       accred: { by: 'Qualifying law degree', body: 'The LLB is a qualifying law degree, meeting the academic stage of training for the routes into practice as a solicitor or barrister.' },
-      tourName: 'Aston Law and the Main Building', stopImgs: ['parliament', 'seminar', 'conferenceTalk', 'portraitW'],
+      tourName: 'Aston Law and the Main Building', stopImgs: ['parliament', 'studySpace', 'seminar', 'studentSupport'],
       stops: [
         { name: 'Moot court room', detail: 'Where advocacy is practised and competitions are held.' },
         { name: 'Law library collection', detail: 'Print and digital sources, plus legal database training.' },
@@ -1664,7 +1687,7 @@ class Component extends DCLogic {
       ] },
     { id: 'health', icon: '#ico-health', name: 'Health & Medicine', teaser: 'Clinical practice, patients, and the science underneath.', hero: 'labTeaching', heroAlt: 'Teaching in an Aston laboratory',
       accred: { by: 'Professionally accredited clinical courses', body: 'Our clinical courses are accredited by the relevant regulators, including the General Pharmaceutical Council for pharmacy, the NMC for nursing and the GMC for medicine.' },
-      tourName: 'Clinical teaching facilities', stopImgs: ['labTeaching', 'bioMicroscope', 'labMicroscope', 'seminar'],
+      tourName: 'Clinical teaching facilities', stopImgs: ['labTeaching', 'bioMicroscope', 'labMicroscope', 'studySpace'],
       stops: [
         { name: 'Clinical skills suite', detail: 'Hospital-standard bays where practice happens before placement.' },
         { name: 'Anatomy and biosciences labs', detail: 'Models, microscopy and practical teaching space.' },
@@ -1678,7 +1701,7 @@ class Component extends DCLogic {
       ] },
     { id: 'vision', icon: '#ico-eye', name: 'Vision & Eye Care', teaser: 'Sight, the eye, and a clinic full of real patients.', hero: 'optomClinic', heroAlt: 'Aston University optometry teaching clinic',
       accred: { by: 'General Optical Council approved', body: 'Our MOptom is approved by the General Optical Council, and the integrated final year means you register as an optometrist without a separate pre-registration year.' },
-      tourName: 'Optometry clinics', stopImgs: ['optomClinic', 'labMicroscope', 'labLasers', 'seminar'],
+      tourName: 'Optometry clinics', stopImgs: ['optomClinic', 'labMicroscope', 'labLasers', 'studySpace'],
       stops: [
         { name: 'Aston Eye Clinic', detail: 'A working public clinic where students see real patients from second year.' },
         { name: 'Consulting rooms', detail: 'Fully equipped bays, the same kit you will use in practice.' },
@@ -1692,7 +1715,7 @@ class Component extends DCLogic {
       ] },
     { id: 'science', icon: '#ico-lab', name: 'Science', teaser: 'Molecules, brains and numbers, worked out in a lab.', hero: 'hearts', heroAlt: 'Anatomical specimens used in Aston teaching',
       accred: { by: 'Royal Society of Biology accredited', body: 'Our bioscience degrees are accredited by the Royal Society of Biology, and the professional placement year is recognised as part of that accreditation.' },
-      tourName: 'Science laboratories', stopImgs: ['hearts', 'lasers', 'lectureAudience', 'seminar'],
+      tourName: 'Science laboratories', stopImgs: ['hearts', 'lasers', 'lectureTheatre', 'studySpace'],
       stops: [
         { name: 'Biosciences teaching labs', detail: 'Wet labs for practical work from first year onwards.' },
         { name: 'Analytical instrument suite', detail: 'Spectroscopy, chromatography and imaging you use yourself.' },
@@ -1706,7 +1729,7 @@ class Component extends DCLogic {
       ] },
     { id: 'society-politics', icon: '#ico-world', name: 'Society & Politics', teaser: 'Power, people and the arguments that shape both.', hero: 'seminar', heroAlt: 'An Aston seminar in progress',
       accred: { by: 'Top 25 in the UK for career prospects', body: 'Our social science degrees are taught in a university ranked 2nd in England for impact on social mobility, with a placement year built into most courses.' },
-      tourName: 'Social sciences and the Main Building', stopImgs: ['seminar', 'lab', 'lectureAudience', 'portraitW'],
+      tourName: 'Social sciences and the Main Building', stopImgs: ['seminar', 'lab', 'lectureTheatre', 'studentSupport'],
       stops: [
         { name: 'Seminar rooms', detail: 'Small-group teaching built around debate, not lectures.' },
         { name: 'Social research lab', detail: 'Survey, interview and data analysis training.' },
@@ -1720,7 +1743,7 @@ class Component extends DCLogic {
       ] },
     { id: 'english-comms', icon: '#ico-chat', name: 'English & Communication', teaser: 'Language, media and making yourself understood.', hero: 'lab', heroAlt: 'An Aston teaching laboratory',
       accred: { by: 'Adobe Creative Campus', body: 'Aston is an Adobe Creative Campus, so industry-standard creative tools are part of your degree \u2014 93 per cent of alumni say those tools helped them meet their career goals.' },
-      tourName: 'Language and media facilities', stopImgs: ['lab', 'productDesign', 'seminar', 'lectureAudience'],
+      tourName: 'Language and media facilities', stopImgs: ['lab', 'productDesign', 'seminar', 'studySpace'],
       stops: [
         { name: 'Language labs', detail: 'Phonetics and language analysis software.' },
         { name: 'Media production space', detail: 'Recording and editing kit for digital media work.' },
@@ -2079,12 +2102,12 @@ class Component extends DCLogic {
   ];
 
   CAMPUS = [
-    { name: 'The Library', detail: 'Open 24/7, with silent and group floors, borrowable laptops and study bikes.', img: 'business', href: 'https://www.aston.ac.uk/library' },
-    { name: 'Aston Students\u2019 Union', detail: 'Run by students, for students. Over 140 clubs and societies, or start your own.', img: 'handsTogether', href: 'https://www.astonsu.com' },
-    { name: 'Support and wellbeing', detail: 'Counselling, mental health advice, disability and neurodiversity support, in one place.', img: 'portraitW', href: 'https://www.aston.ac.uk/study/student-support' },
-    { name: 'Sport Aston', detail: 'Fully equipped gym, classes, badminton and squash courts, pool, sauna and steam room.', img: 'outreach', href: 'https://www.aston.ac.uk/sport' },
-    { name: 'Faith and chaplaincy', detail: 'Chaplains and a dedicated prayer space, for all religious backgrounds and none.', img: 'seminar', href: 'https://www.aston.ac.uk/study/student-support/chaplaincy' },
-    { name: 'Campus food', detail: 'The SU Lounge bar and restaurant, cafes across campus and a supermarket next door.', img: 'conferenceTalk', href: 'https://www.aston.ac.uk/campus' }
+    { name: 'The Library', detail: 'Open 24/7, with silent and group floors, borrowable laptops and study bikes.', img: 'studySpace', href: 'https://www.aston.ac.uk/library' },
+    { name: 'Aston Students\u2019 Union', detail: 'Run by students, for students. Over 140 clubs and societies, or start your own.', img: 'cohortEvent', href: 'https://www.astonsu.com' },
+    { name: 'Support and wellbeing', detail: 'Counselling, mental health advice, disability and neurodiversity support, in one place.', img: 'studentSupport', href: 'https://www.aston.ac.uk/study/student-support' },
+    { name: 'Sport Aston', detail: 'Fully equipped gym, classes, badminton and squash courts, pool, sauna and steam room.', img: 'staircase', href: 'https://www.aston.ac.uk/sport' },
+    { name: 'Faith and chaplaincy', detail: 'Chaplains and a dedicated prayer space, for all religious backgrounds and none.', img: 'volunteering', href: 'https://www.aston.ac.uk/study/student-support/chaplaincy' },
+    { name: 'Campus food', detail: 'The SU Lounge bar and restaurant, cafes across campus and a supermarket next door.', img: 'lounge', href: 'https://www.aston.ac.uk/campus' }
   ];
 
   BIRMINGHAM = [
@@ -2097,10 +2120,10 @@ class Component extends DCLogic {
   ];
 
   LIFE_STORIES = [
-    { title: 'My first week at Aston: what I wish I\u2019d known before starting university', kind: 'Student story', img: 'portraitW' },
+    { title: 'My first week at Aston: what I wish I\u2019d known before starting university', kind: 'Student story', img: 'groupStudy' },
     { title: 'Living on campus: what Aston Student Village is really like', kind: 'Accommodation', img: 'accom' },
-    { title: 'My favourite places to eat, shop and hang out in Birmingham', kind: 'Birmingham', img: 'accom' },
-    { title: 'More than a degree: five things I got involved in at Aston', kind: 'Student life', img: 'seminar' }
+    { title: 'My favourite places to eat, shop and hang out in Birmingham', kind: 'Birmingham', img: 'campusSkyline' },
+    { title: 'More than a degree: five things I got involved in at Aston', kind: 'Student life', img: 'presenting' }
   ];
 
   APPLY_ADVICE = {
@@ -2946,7 +2969,7 @@ class Component extends DCLogic {
       lifeClips: this.SOCIAL_LIFE.map((v) => this.clip(v)),
       costClips: [
         { title: 'A week of food shopping in Birmingham', img: 'portraitW' },
-        { title: 'What I spend in a month at Aston', img: 'portraitM' },
+        { title: 'What I spend in a month at Aston', img: 'pgStudy' },
         { title: 'Room tour: Aston Student Village', img: 'accom' }
       ].map((v) => ({ title: v.title, imgCss: (this.IMG[v.img] ? 'url("' + this.IMG[v.img] + '")' : 'none'), alt: v.title, open: () => this.setState({ lightbox: { kind: 'video' } }) })),
       lifeStories: this.LIFE_STORIES.map((s) => ({ title: s.title, kind: s.kind, imgCss: (this.IMG[s.img] ? 'url("' + this.IMG[s.img] + '")' : 'none'), alt: s.kind })),
