@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #1c1c1c; font-family: "Inter Tight", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: #f072ff; }
+  a:hover { color: #ffffff; }
+</style>
+</helmet>
+
+<div style="min-height: 100vh; display: flex; flex-direction: column; background: #1c1c1c;">
+
+  <div style="flex-shrink: 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 20px; background: #0c0c0c; border-bottom: 1px solid #3d3d3d;">
+    <div style="display: flex; flex-direction: column; gap: 2px;">
+      <span style="font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #27e0ac; font-weight: 500;">Aston digital prospectus</span>
+      <span style="font-size: 13px; color: #9d9d9d;">Device preview — the prototype runs at a real viewport width</span>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 20px;">
+      <button type="button" onClick="{{ resetProto }}" title="Clear the saved prospectus and reload" style="display: flex; align-items: center; gap: 7px; min-height: 44px; padding: 0 14px; background: transparent; border: 1px solid #3d3d3d; color: #efefef; cursor: pointer; font-family: inherit; font-size: 13px; font-weight: 500; white-space: nowrap; transition: border-color 0.15s, color 0.15s;" style-hover="border-color: #f072ff; color: #ffffff;"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" focusable="false" style="flex-shrink: 0;"><path d="M3 12a9 9 0 1 0 3.5-7.1M3 4v5h5" stroke="currentColor" stroke-width="1.8" fill="none"></path></svg>Reset</button>
+      <div role="group" aria-label="Prototype screen" style="display: flex; gap: 2px; background: #3d3d3d; padding: 2px;">
+        <sc-for list="{{ screens }}" as="s" hint-placeholder-count="3">
+          <button type="button" onClick="{{ s.pick }}" aria-pressed="{{ s.on }}" style="padding: 8px 14px; border: none; cursor: pointer; font-family: inherit; font-size: 13px; font-weight: 500; white-space: nowrap; background: {{ s.bg }}; color: {{ s.fg }}; transition: background 0.15s, color 0.15s;">{{ s.label }}</button>
+        </sc-for>
+      </div>
+      <div role="group" aria-label="Device size" style="display: flex; gap: 2px; background: #3d3d3d; padding: 2px;">
+        <sc-for list="{{ devices }}" as="d" hint-placeholder-count="3">
+          <button type="button" onClick="{{ d.pick }}" aria-pressed="{{ d.on }}" style="display: flex; align-items: center; gap: 7px; padding: 8px 14px; border: none; cursor: pointer; font-family: inherit; font-size: 13px; font-weight: 500; background: {{ d.bg }}; color: {{ d.fg }}; transition: background 0.15s, color 0.15s;">
+            <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" focusable="false" style="flex-shrink: 0;"><sc-for list="{{ d.iconPaths }}" as="pth" hint-placeholder-count="1"><path d="{{ pth.d }}" stroke="currentColor" stroke-width="1.6" fill="none"></path></sc-for></svg>
+            {{ d.label }}
+          </button>
+        </sc-for>
+      </div>
+      <span style="font-size: 12px; color: #9d9d9d; font-variant-numeric: tabular-nums; min-width: 11ch; text-align: right;">{{ sizeLabel }}</span>
+    </div>
+  </div>
+
+  <svg width="0" height="0" style="position: absolute; overflow: hidden;" aria-hidden="true" focusable="false">
+    <symbol id="dev-mobile" viewBox="0 0 24 24" fill="none"><path d="M6.5 1.5H17.5V22.5H6.5V1.5Z" stroke="currentColor" stroke-width="1.6"></path><path d="M10.5 19.5H13.5" stroke="currentColor" stroke-width="1.6"></path></symbol>
+    <symbol id="dev-tablet" viewBox="0 0 24 24" fill="none"><path d="M3.5 2.5H20.5V21.5H3.5V2.5Z" stroke="currentColor" stroke-width="1.6"></path><path d="M10.5 18.5H13.5" stroke="currentColor" stroke-width="1.6"></path></symbol>
+    <symbol id="dev-desktop" viewBox="0 0 24 24" fill="none"><path d="M1.5 3.5H22.5V17.5H1.5V3.5Z" stroke="currentColor" stroke-width="1.6"></path><path d="M8 21H16M12 17.5V21" stroke="currentColor" stroke-width="1.6"></path></symbol>
+  </svg>
+
+  <div style="flex: 1; min-height: 0; display: flex; align-items: flex-start; justify-content: center; padding: {{ stagePad }}; overflow: auto;">
+    <div style="width: {{ frameWidth }}; height: {{ frameHeight }}; max-width: 100%; flex-shrink: 0; background: #0c0c0c; border: {{ frameBorder }}; box-shadow: {{ frameShadow }}; overflow: hidden;">
+      <iframe ref="{{ frameRef }}" src="Aston Digital Prospectus v2.dc.html" title="Aston digital prospectus prototype" style="width: 100%; height: 100%; border: none; display: block;"></iframe>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  state = { device: 'mobile', screen: 'landing' };
+
+  SCREENS = [
+    { id: 'landing', label: 'Start' },
+    { id: 'steps', label: 'Form' },
+    { id: 'prospectus', label: 'Prospectus' }
+  ];
+
+  frame = React.createRef();
+
+  ICON_PATHS = {"#dev-mobile":["M6.5 1.5H17.5V22.5H6.5V1.5Z","M10.5 19.5H13.5"],"#dev-tablet":["M3.5 2.5H20.5V21.5H3.5V2.5Z","M10.5 18.5H13.5"],"#dev-desktop":["M1.5 3.5H22.5V17.5H1.5V3.5Z","M8 21H16M12 17.5V21"]};
+
+  DEVICES = [
+    { id: 'mobile', label: 'Mobile', icon: '#dev-mobile', w: 390, h: 844 },
+    { id: 'tablet', label: 'Tablet', icon: '#dev-tablet', w: 834, h: 1112 },
+    { id: 'desktop', label: 'Desktop', icon: '#dev-desktop', w: 0, h: 0 }
+  ];
+
+  componentDidMount() {
+    try {
+      const d = window.localStorage.getItem('aston-preview-device');
+      if (d && this.DEVICES.some((x) => x.id === d)) this.setState({ device: d });
+    } catch (e) { /* storage unavailable */ }
+  }
+
+  renderVals() {
+    const cur = this.DEVICES.filter((d) => d.id === this.state.device)[0] || this.DEVICES[0];
+    const isDesktop = cur.id === 'desktop';
+    return {
+      devices: this.DEVICES.map((d) => {
+        const on = d.id === cur.id;
+        return {
+          label: d.label, on: on,
+          iconPaths: (this.ICON_PATHS[d.icon] || []).map((dd) => ({ d: dd })),
+          bg: on ? '#f072ff' : 'transparent',
+          fg: on ? '#0c0c0c' : '#efefef',
+          pick: () => {
+            this.setState({ device: d.id });
+            try { window.localStorage.setItem('aston-preview-device', d.id); } catch (e) { /* storage unavailable */ }
+          }
+        };
+      }),
+      screens: this.SCREENS.map((s) => {
+        const on = s.id === this.state.screen;
+        return {
+          label: s.label, on: on,
+          bg: on ? '#27e0ac' : 'transparent',
+          fg: on ? '#0c0c0c' : '#efefef',
+          pick: () => {
+            this.setState({ screen: s.id });
+            const el = this.frame.current;
+            if (el) el.src = 'Aston Digital Prospectus v2.dc.html' + (s.id === 'landing' ? '?r=' + Date.now() : '?screen=' + s.id + '&r=' + Date.now());
+          }
+        };
+      }),
+      frameRef: this.frame,
+      resetProto: () => {
+        try { window.localStorage.removeItem('aston-prospectus-v2'); } catch (e) { /* storage unavailable */ }
+        const el = this.frame.current;
+        if (el) el.src = el.src.split('#')[0] + '?r=' + Date.now();
+      },
+      sizeLabel: isDesktop ? 'Full width' : cur.w + ' × ' + cur.h,
+      frameWidth: isDesktop ? '100%' : cur.w + 'px',
+      frameHeight: isDesktop ? 'calc(100vh - 130px)' : cur.h + 'px',
+      frameBorder: isDesktop ? 'none' : '1px solid #3d3d3d',
+      frameShadow: isDesktop ? 'none' : '0 24px 60px rgba(0,0,0,0.55)',
+      stagePad: isDesktop ? '0' : '28px 20px'
+    };
+  }
+}
+</script>
+</body>
+</html>
