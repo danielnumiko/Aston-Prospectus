@@ -2855,7 +2855,11 @@ class Component extends DCLogic {
 
       homeHeading: name ? name + ', this one is yours.' : 'This one is yours.',
       homeBody: 'This prospectus has been built around ' + subj.name + ' at ' + levelWord + ' level, for ' + (isStudent ? 'a prospective ' + (intl ? 'international' : 'UK') + ' student' : p.userType === 'parent' ? 'a parent or guardian' : p.userType === 'agent' ? 'an agent partner in ' + p.country : 'a teacher or adviser') + ', starting ' + p.entryYear + '. Five sections, no course catalogue to wade through.',
-      welcomeIntro: 'Four sections from here: what you can study, where you would study it, life outside the timetable, and where it all leads. Everything is filtered to ' + subj.name + ' at ' + levelWord + ' level — change your answers at any point and it rebuilds around them.',
+      welcomeIntro: isStudent
+        ? (ug
+          ? 'Every undergraduate course here is built around real time in industry — a placement year, or a clinical or industry internship — with more than 200 employers recruiting on campus each year. It shows in where our graduates end up.'
+          : 'Aston postgraduates are taught by people who still practise, in a university built around what employers are actually hiring for, with a careers service you keep for three years after you graduate. It shows in where our graduates end up.')
+        : 'One campus in the middle of Birmingham, real time in industry built into every undergraduate course, and more than 200 employers recruiting here each year. Students are supported from day one and keep our careers service for three years after they graduate.',
       homeVideoAlt: 'Why Aston? — campus film',
       openVideo: () => this.setState({ lightbox: { kind: 'video' } }),
       stats: this.STATS,
