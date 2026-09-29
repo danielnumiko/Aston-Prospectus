@@ -124,9 +124,21 @@
   [data-rail-arrow]:not(:disabled):hover [data-chev="next"] i:nth-child(2) { transform: translateX(0); }
   [data-rail-arrow] > [data-flair-shard] > span { width: 800%; }
   [data-pip] { height: 4px; background: var(--type-heading); border: none; padding: 0; cursor: pointer; flex-shrink: 0; transition: width 0.3s ease; }
-  [data-course-grid] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  @media (max-width: 1100px) { [data-course-grid] { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (max-width: 640px) { [data-course-grid] { grid-template-columns: minmax(0, 1fr); } }
+  [data-course-list] { display: flex; flex-direction: column; }
+  [data-course-list] > li { border-top: var(--borders-border-line) solid var(--primary-border); }
+  [data-course-list] > li:last-child { border-bottom: var(--borders-border-line) solid var(--primary-border); }
+  [data-course-list] > li > button { display: grid; grid-template-columns: 180px minmax(0, 1fr) minmax(0, 1.25fr); gap: var(--spacing-base) var(--spacing-m); align-items: start; width: 100%; padding: var(--spacing-base) 0; background: none; border: none; text-align: left; cursor: pointer; font-family: inherit; }
+  [data-course-thumb] { position: relative; display: block; width: 100%; aspect-ratio: 16 / 10; overflow: hidden; }
+  [data-course-head] { display: flex; flex-direction: column; gap: var(--spacing-2xs); min-width: 0; }
+  [data-course-summary] { font-size: var(--font-size-s); color: var(--type-body); line-height: 1.45; text-wrap: pretty; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+  @media (max-width: 1100px) {
+    [data-course-list] > li > button { grid-template-columns: 150px minmax(0, 1fr); }
+    [data-course-summary] { grid-column: 2 / -1; -webkit-line-clamp: 3; }
+  }
+  @media (max-width: 640px) {
+    [data-course-list] > li > button { grid-template-columns: 96px minmax(0, 1fr); gap: var(--spacing-sm); }
+    [data-course-summary] { -webkit-line-clamp: 3; }
+  }
   @media (prefers-reduced-motion: reduce) { [data-reveal] { opacity: 1; animation: none !important; } }
   @media (prefers-reduced-motion: reduce) { [data-teaser] [data-teaser-img], [data-teaser-flair], [data-arrow-slide] i, [data-flair] > [data-flair-shard] { transition: none !important; } }
   :root {
@@ -647,20 +659,23 @@
             </sc-for>
           </div>
           </sc-if>
-          <ul data-course-grid style="display: grid; gap: var(--spacing-m) var(--spacing-base); align-items: stretch;">
+          <ul data-course-list>
             <sc-for list="{{ courses }}" as="c" hint-placeholder-count="4">
-              <li data-teaser style="min-width: 0; display: flex;">
-                <button type="button" onClick="{{ c.open }}" style="width: 100%; text-align: left; padding: 0; background: none; border: none; cursor: pointer; display: flex; flex-direction: column; gap: var(--spacing-xs);">
-                  <span style="position: relative; display: block; width: 100%; aspect-ratio: 400 / 225; overflow: hidden;">
+              <li data-teaser>
+                <button type="button" onClick="{{ c.open }}">
+                  <span data-course-thumb>
                     <span data-teaser-img role="img" aria-label="{{ c.alt }}" style="display: block; width: 100%; height: 100%; background-image: {{ c.imgCss }}; background-size: cover; background-position: center;"></span>
                     <span data-teaser-flair aria-hidden="true"><span data-arrow-slide aria-hidden="true"><i></i><i></i></span></span>
                     <sc-if value="{{ c.clearing }}" hint-placeholder-val="{{ false }}">
                       <span style="position: absolute; top: 0; left: 0; padding: var(--spacing-2xs) var(--spacing-xs); background: var(--interactive-strong); color: #ffffff; font-size: var(--font-size-2xs); font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;">In Clearing</span>
                     </sc-if>
                   </span>
-                  <span style="font-size: var(--font-size-2xs); letter-spacing: 0.1em; text-transform: uppercase; color: var(--teaser-meta); font-weight: 500;">{{ c.level }}</span>
-                  <span data-teaser-title style="font-size: var(--font-size-l); font-weight: 600; color: var(--type-teaser-headings); line-height: 1.25; text-wrap: balance;">{{ c.title }}</span>
-                  <span style="font-size: var(--font-size-s); color: var(--type-body); line-height: 1.4; text-wrap: pretty;">{{ c.meta }}</span>
+                  <span data-course-head>
+                    <span style="font-size: var(--font-size-2xs); letter-spacing: 0.1em; text-transform: uppercase; color: var(--teaser-meta); font-weight: 500;">{{ c.level }}</span>
+                    <span data-teaser-title style="font-size: var(--font-size-l); font-weight: 600; color: var(--type-teaser-headings); line-height: 1.25; text-wrap: balance;">{{ c.title }}</span>
+                    <span style="font-size: var(--font-size-xs); color: var(--type-body); line-height: 1.4;">{{ c.meta }}</span>
+                  </span>
+                  <span data-course-summary>{{ c.summary }}</span>
                 </button>
               </li>
             </sc-for>
@@ -2924,6 +2939,7 @@ class Component extends DCLogic {
       courses: (st.courseFilter ? courses.filter((c) => c.subjectId === st.courseFilter) : courses).map((c) => ({
         title: c.title, alt: c.title, imgCss: (this.IMG[c.imgKey] ? 'url("' + this.IMG[c.imgKey] + '")' : 'none'),
         level: multiSubject ? c.subjectName : (ug ? 'Undergraduate' : 'Postgraduate taught'),
+        summary: c.why || '',
         meta: c.ucas + '  ·  ' + c.duration,
         clearing: !!c.clearing,
         open: () => this.setState({ lightbox: { kind: 'course', course: {
