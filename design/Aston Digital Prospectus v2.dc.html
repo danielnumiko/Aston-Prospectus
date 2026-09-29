@@ -2090,18 +2090,18 @@ class Component extends DCLogic {
 
   WIDE_STORIES = {
     ug: [
-      { title: 'What my placement year actually changed', kind: 'Placement year', img: 'presenting' },
-      { title: 'First year at Aston: what I wish I had known', kind: 'Student story', img: 'groupStudy' },
-      { title: 'How I used the Careers Advantage from day one', kind: 'Careers', img: 'studentSupport' },
-      { title: 'Studying in Birmingham as an international student', kind: 'Student story', img: 'campusSkyline' },
-      { title: 'Where an Aston degree took me', kind: 'Careers', img: 'graduation' }
+      { title: 'From Aston graduate to running my own business', kind: 'Alumni', img: 'graduation' },
+      { title: 'My placement year, and what it led to', kind: 'Graduate story', img: 'presenting' },
+      { title: 'Where our graduates are three years on', kind: 'Outcomes', img: 'staircase' },
+      { title: 'Five ways to build experience alongside your degree', kind: 'Careers', img: 'groupStudy' },
+      { title: 'How students use the Aston alumni network', kind: 'Alumni', img: 'studentSupport' }
     ],
     pgt: [
-      { title: 'Going back to study after four years working', kind: 'Student story', img: 'pgStudy' },
-      { title: 'What a masters did for my salary', kind: 'Careers', img: 'graduation' },
-      { title: 'Balancing a masters with a job', kind: 'Student story', img: 'lectureLaptops' },
-      { title: 'How the careers team works with postgraduates', kind: 'Careers', img: 'studentSupport' },
-      { title: 'Why I chose Aston for postgraduate study', kind: 'Student story', img: 'presenting' }
+      { title: 'From an Aston masters to a job I could not have had before', kind: 'Alumni', img: 'graduation' },
+      { title: 'What a masters did for my career', kind: 'Graduate story', img: 'pgStudy' },
+      { title: 'Where our postgraduates are three years on', kind: 'Outcomes', img: 'lectureLaptops' },
+      { title: 'Going back to study after years in work', kind: 'Graduate story', img: 'presenting' },
+      { title: 'How postgraduates use the careers service', kind: 'Careers', img: 'studentSupport' }
     ]
   };
 
@@ -2978,7 +2978,7 @@ class Component extends DCLogic {
       studyStoriesNote: storiesLevel === 'subject'
         ? 'What the course is actually like, from ' + (multiSubject ? 'our' : subj.short) + ' students and recent graduates.'
         : storiesLevel === 'wide'
-        ? 'No stories for ' + (multiSubject ? 'these subjects' : subj.short) + ' yet, so these come from across Aston at ' + levelWord + ' level.'
+        ? 'No stories for ' + (multiSubject ? 'these subjects' : subj.short) + ' yet, so these are Aston graduate and alumni stories at ' + levelWord + ' level.'
         : 'Some of these come from the wider subject area, where we do not have stories for your exact choice yet.',
 
       tourHeading: 'See where you would actually be',
