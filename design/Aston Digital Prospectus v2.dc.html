@@ -175,6 +175,7 @@
     --spacing-gutters: clamp(16px, 8px + 3vw, 56px);
     --spacing-slice-margin: clamp(80px, 74px + 1.875vw, 110px);
     --spacing-heading-gap: clamp(48px, 44.4px + 1.125vw, 66px);
+    --spacing-nav-offset: 118px;
     --spacing-logo-height: clamp(32px, 25.2px + 2.125vw, 66px);
   }
   [data-theme="white"] { --primary-bg: #ffffff; --secondary-bg: #fdf9f7; --neutral: #ffead7; --teaser-meta: #ad14b7; --primary-accent: #ad14b7; --interactive: #ad14b7; --interactive-strong: #ad14b7;
@@ -245,7 +246,7 @@
     <sc-if value="{{ hasAmbientToggle }}" hint-placeholder-val="{{ true }}">
       <button type="button" onClick="{{ toggleAmbient }}" aria-label="{{ ambientToggleLabel }}" aria-pressed="{{ ambientPaused }}" style="position: absolute; right: var(--spacing-gutters); bottom: var(--spacing-gutters); z-index: 3; width: 48px; height: 48px; border-radius: 50%; border: var(--borders-border-line) solid rgba(255,255,255,0.55); background: rgba(12,12,12,0.55); backdrop-filter: blur(6px); color: #ffffff; cursor: pointer; display: flex; align-items: center; justify-content: center;" style-focus="outline: 3px solid var(--interactive); outline-offset: 3px;">
         <sc-if value="{{ ambientPlaying }}" hint-placeholder-val="{{ true }}">
-          <span aria-hidden="true" style="display: flex; gap: 4px;">
+          <span aria-hidden="true" style="display: flex; gap: var(--spacing-2xs);">
             <span style="display: block; width: 4px; height: 16px; background: #ffffff;"></span>
             <span style="display: block; width: 4px; height: 16px; background: #ffffff;"></span>
           </span>
@@ -598,7 +599,7 @@
 
   <main style="min-width: 0;">
 
-    <section id="home" data-theme="white" data-screen-label="Welcome" style="scroll-margin-top: 118px; background: var(--primary-bg);">
+    <section id="home" data-theme="white" data-screen-label="Welcome" style="scroll-margin-top: var(--spacing-nav-offset); background: var(--primary-bg);">
       <div style="position: relative; min-height: min(76vh, 760px); display: flex; align-items: flex-end; overflow: hidden;">
         <img alt="{{ homeVideoAlt }}" src="public/assets/img-lab.png" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
         <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(12,12,12,0.35) 0%, rgba(12,12,12,0.45) 24%, rgba(12,12,12,0.86) 52%, rgba(12,12,12,0.97) 78%, #0c0c0c 100%);"></div>
@@ -632,7 +633,7 @@
       </div>
     </section>
 
-    <section id="courses" data-theme="orange" data-screen-label="Study" style="scroll-margin-top: 118px; background: var(--primary-bg);">
+    <section id="courses" data-theme="orange" data-screen-label="Study" style="scroll-margin-top: var(--spacing-nav-offset); background: var(--primary-bg);">
       <div style="position: relative;">
         <div style="width: 100%;">
         <div style="max-width: 1440px; margin: 0 auto; padding: var(--spacing-slice-margin) var(--spacing-gutters); display: flex; flex-direction: column; align-items: center; gap: var(--spacing-base); text-align: center; background-image: linear-gradient(rgba(12,12,12,0.45), rgba(12,12,12,0.72)), {{ subjectBandCss }}; background-size: cover; background-position: center;">
@@ -759,8 +760,8 @@
         </div>
 
         <sc-if value="{{ hasEvents }}" hint-placeholder-val="{{ true }}">
-        <div data-slice-head data-reveal="up" style="display: flex; flex-direction: column; gap: var(--spacing-base);">
-          <h3 style="font-size: var(--font-size-3xl); font-weight: 600; line-height: 1.05; color: var(--type-heading); max-width: 70%; text-wrap: pretty;">Come and see us</h3>
+        <div data-reveal="up" style="display: flex; flex-direction: column; gap: var(--spacing-base);">
+          <h3 style="margin-bottom: calc(var(--spacing-heading-gap) - var(--spacing-base)); font-size: var(--font-size-3xl); font-weight: 600; line-height: 1.05; color: var(--type-heading); max-width: 70%; text-wrap: pretty;">Come and see us</h3>
           <ul data-reveal="up" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: var(--spacing-base);">
             <sc-for list="{{ events }}" as="e" hint-placeholder-count="3">
               <li style="border-top: var(--borders-border-line) solid var(--neutral); padding-top: var(--spacing-base); display: flex; flex-direction: column; gap: var(--spacing-xs);">
@@ -783,7 +784,7 @@
       </div>
     </section>
 
-    <section id="tour" data-theme="white" data-screen-label="Campus" style="scroll-margin-top: 118px; background: var(--primary-bg);">
+    <section id="tour" data-theme="white" data-screen-label="Campus" style="scroll-margin-top: var(--spacing-nav-offset); background: var(--primary-bg);">
       <div style="position: relative;">
         <div style="width: 100%;">
         <div style="max-width: 1440px; margin: 0 auto; padding: var(--spacing-slice-margin) var(--spacing-gutters); display: flex; flex-direction: column; align-items: center; gap: var(--spacing-base); text-align: center; background-image: linear-gradient(rgba(12,12,12,0.45), rgba(12,12,12,0.72)), {{ bandCampusCss }}; background-size: cover; background-position: center;">
@@ -805,7 +806,7 @@
         </div>
         </div>
 
-        <div data-slice-head data-reveal="up" style="display: flex; flex-direction: column; gap: var(--spacing-base);">
+        <div data-reveal="up" style="display: flex; flex-direction: column; gap: var(--spacing-heading-gap);">
           <h3 style="font-size: var(--font-size-3xl); font-weight: 600; line-height: 1.05; color: var(--type-heading); max-width: 70%; text-wrap: pretty;">Around the campus</h3>
         <div style="display: flex; flex-direction: column; gap: var(--spacing-xs);">
           <ul ref="{{ railCampusRef }}" style="display: flex; gap: var(--spacing-base); overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; -webkit-overflow-scrolling: touch; padding-bottom: var(--spacing-2xs); align-items: stretch;">
@@ -857,7 +858,7 @@
                   <span style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;">
                     <span data-flair data-play aria-hidden="true"><span data-flair-shard><span></span></span><span data-play-glyph>&#9654;</span></span>
                   </span>
-                  <span style="position: absolute; inset: auto 0 0 0; padding: var(--spacing-sm); background: linear-gradient(180deg, rgba(12,12,12,0) 0%, rgba(12,12,12,0.92) 55%); display: flex; flex-direction: column; gap: 4px;">
+                  <span style="position: absolute; inset: auto 0 0 0; padding: var(--spacing-sm); background: linear-gradient(180deg, rgba(12,12,12,0) 0%, rgba(12,12,12,0.92) 55%); display: flex; flex-direction: column; gap: var(--spacing-2xs);">
                     <span style="font-size: var(--font-size-xs); font-weight: 600; color: #ffffff; line-height: 1.3;">{{ v.title }}</span>
                     <span style="font-size: var(--font-size-2xs); color: #d5d5d5;">{{ v.meta }} &middot; Aston University</span>
                   </span>
@@ -884,7 +885,7 @@
       </div>
     </section>
 
-    <section id="life" data-theme="orange" data-screen-label="Student life" style="scroll-margin-top: 118px; background: var(--primary-bg);">
+    <section id="life" data-theme="orange" data-screen-label="Student life" style="scroll-margin-top: var(--spacing-nav-offset); background: var(--primary-bg);">
       <div style="position: relative;">
         <div style="width: 100%;">
         <div style="max-width: 1440px; margin: 0 auto; padding: var(--spacing-slice-margin) var(--spacing-gutters); display: flex; flex-direction: column; align-items: center; gap: var(--spacing-base); text-align: center; background-image: linear-gradient(rgba(12,12,12,0.45), rgba(12,12,12,0.72)), {{ bandLifeCss }}; background-size: cover; background-position: center;">
@@ -901,7 +902,7 @@
       </div>
       <div style="max-width: 1280px; margin: 0 auto; padding: var(--spacing-slice-margin) var(--spacing-gutters); display: flex; flex-direction: column; gap: var(--spacing-slice-margin);">
 
-        <div data-slice-head data-reveal="up" style="display: flex; flex-direction: column; gap: var(--spacing-sm);">
+        <div data-reveal="up" style="display: flex; flex-direction: column; gap: var(--spacing-heading-gap);">
           <h3 style="font-size: var(--font-size-3xl); font-weight: 600; line-height: 1.05; color: var(--type-heading); max-width: 70%; text-wrap: pretty;">The city at the gates</h3>
           <ul data-reveal="up" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--spacing-base);">
             <sc-for list="{{ birminghamPages }}" as="b" hint-placeholder-count="6">
@@ -1020,7 +1021,7 @@
                   <span style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;">
                     <span data-flair data-play aria-hidden="true"><span data-flair-shard><span></span></span><span data-play-glyph>&#9654;</span></span>
                   </span>
-                  <span style="position: absolute; inset: auto 0 0 0; padding: var(--spacing-sm); background: linear-gradient(180deg, rgba(12,12,12,0) 0%, rgba(12,12,12,0.92) 55%); display: flex; flex-direction: column; gap: 4px;">
+                  <span style="position: absolute; inset: auto 0 0 0; padding: var(--spacing-sm); background: linear-gradient(180deg, rgba(12,12,12,0) 0%, rgba(12,12,12,0.92) 55%); display: flex; flex-direction: column; gap: var(--spacing-2xs);">
                     <span style="font-size: var(--font-size-xs); font-weight: 600; color: #ffffff; line-height: 1.3;">{{ v.title }}</span>
                     <span style="font-size: var(--font-size-2xs); color: #d5d5d5;">{{ v.meta }} &middot; @astonuniversity</span>
                   </span>
@@ -1044,7 +1045,7 @@
           </div>
         </div>
 
-        <div data-slice-head data-reveal="up" style="display: flex; flex-direction: column; gap: var(--spacing-base);">
+        <div data-reveal="up" style="display: flex; flex-direction: column; gap: var(--spacing-heading-gap);">
           <h3 style="font-size: var(--font-size-3xl); font-weight: 600; line-height: 1.05; color: var(--type-heading); max-width: 70%; text-wrap: pretty;">Life at Aston, in their words</h3>
         <div style="display: flex; flex-direction: column; gap: var(--spacing-xs);">
           <ul ref="{{ railLifeRef }}" style="display: flex; gap: var(--spacing-base); overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; -webkit-overflow-scrolling: touch; padding-bottom: var(--spacing-2xs); align-items: stretch;">
@@ -1080,7 +1081,7 @@
       </div>
     </section>
 
-    <section id="careers" data-theme="white" data-screen-label="Careers" style="scroll-margin-top: 118px; background: var(--primary-bg);">
+    <section id="careers" data-theme="white" data-screen-label="Careers" style="scroll-margin-top: var(--spacing-nav-offset); background: var(--primary-bg);">
       <div style="position: relative;">
         <div style="width: 100%;">
         <div style="max-width: 1440px; margin: 0 auto; padding: var(--spacing-slice-margin) var(--spacing-gutters); display: flex; flex-direction: column; align-items: center; gap: var(--spacing-base); text-align: center; background-image: linear-gradient(rgba(12,12,12,0.45), rgba(12,12,12,0.72)), {{ bandCareersCss }}; background-size: cover; background-position: center;">
@@ -1221,7 +1222,7 @@
           <sc-if value="{{ lbCourseClearing }}" hint-placeholder-val="{{ false }}">
             <span style="align-self: flex-start; padding: var(--spacing-2xs) var(--spacing-xs); background: var(--primary-accent); color: #0c0c0c; font-size: var(--font-size-2xs); font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;">In Clearing</span>
           </sc-if>
-          <h2 style="font-size: var(--font-size-2xl); font-weight: 600; color: var(--type-heading); line-height: 1.1; text-wrap: balance; padding-right: 48px;">{{ lbCourseTitle }}</h2>
+          <h2 style="font-size: var(--font-size-2xl); font-weight: 600; color: var(--type-heading); line-height: 1.1; text-wrap: balance; padding-right: var(--spacing-xl);">{{ lbCourseTitle }}</h2>
         </div>
       </div>
       <div style="padding: var(--spacing-m); display: flex; flex-direction: column; gap: var(--spacing-base);">
