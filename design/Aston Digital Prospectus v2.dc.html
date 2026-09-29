@@ -626,9 +626,6 @@
         </div>
       </div>
       <div style="position: relative; z-index: 1; background: var(--primary-bg);">
-      <div data-reveal="band" style="width: calc(100% - 2 * var(--spacing-gutters)); max-width: 1280px; margin-left: auto; margin-right: auto; aspect-ratio: 16 / 5; overflow: hidden;">
-        <div role="img" aria-label="{{ subjectBandAlt }}" style="width: 100%; height: 100%; background-image: {{ subjectBandCss }}; background-size: cover; background-position: center;"></div>
-      </div>
       <div style="max-width: 1280px; margin: 0 auto; padding: var(--spacing-m) var(--spacing-gutters) 0; display: flex; flex-direction: column; gap: var(--spacing-sm);">
         <h3 style="font-size: var(--font-size-4xl); font-weight: 600; line-height: 1.05; color: var(--type-heading); max-width: 70%; text-wrap: pretty;">{{ subjectName }}</h3>
         <p style="font-size: var(--font-size-base); color: var(--type-body); line-height: 1.35; max-width: 54ch; text-wrap: pretty;">{{ coursesIntro }}</p>
@@ -784,9 +781,6 @@
           <svg data-reveal="arrow" viewBox="0 0 61 60" aria-hidden="true" focusable="false" style="width: 54px; height: 54px; display: block; color: var(--interactive-strong);"><path d="M60.0293 31.1767L56.8453 27.8556L32.3918 53.3508V0H32.1682H27.8904H27.6668V53.3508L3.2133 27.8556L0.0292969 31.1767L27.6778 60H27.8904H32.1682H32.3808L60.0293 31.1767Z" fill="currentColor"></path></svg>
           <h2 data-reveal="head" style="font-size: var(--font-size-5xl); font-weight: 600; line-height: 0.92; color: var(--type-heading); letter-spacing: -0.02em; max-width: 20ch; text-wrap: balance;">Campus</h2>
           <p data-reveal="head" style="font-size: var(--font-size-base); color: var(--type-body); line-height: 1.45; max-width: 70%; text-wrap: pretty;">One campus in the middle of Birmingham, where your lectures, labs, library and bed are all within a ten-minute walk of each other.</p>
-          <div data-reveal="band" style="width: 100%; margin-top: var(--spacing-base); aspect-ratio: 16 / 7; overflow: hidden;">
-            <div role="img" aria-label="{{ bandCampusAlt }}" style="width: 100%; height: 100%; background-image: {{ bandCampusCss }}; background-size: cover; background-position: center;"></div>
-          </div>
         </div>
         </div>
       </div>
@@ -900,9 +894,6 @@
         </div>
       </div>
       <div style="position: relative; z-index: 1; background: var(--primary-bg);">
-      <div data-reveal="band" style="width: calc(100% - 2 * var(--spacing-gutters)); max-width: 1280px; margin-left: auto; margin-right: auto; aspect-ratio: 16 / 7; overflow: hidden;">
-        <img alt="{{ bandLifeAlt }}" src="{{ bandLifeSrc }}" style="width: 100%; height: 100%; object-fit: cover; object-position: center 40%;">
-      </div>
       <div style="max-width: 1280px; margin: 0 auto; padding: var(--spacing-m) var(--spacing-gutters) 0; display: flex; flex-direction: column; gap: var(--spacing-sm);">
         <h3 style="font-size: var(--font-size-4xl); font-weight: 600; line-height: 1.05; color: var(--type-heading); max-width: 70%; text-wrap: pretty;">One campus, in the middle of Birmingham</h3>
         <p style="font-size: var(--font-size-base); color: var(--type-body); line-height: 1.35; max-width: 56ch; text-wrap: pretty;">{{ lifeIntro }}</p>
@@ -1095,9 +1086,6 @@
           <svg data-reveal="arrow" viewBox="0 0 61 60" aria-hidden="true" focusable="false" style="width: 54px; height: 54px; display: block; color: var(--interactive-strong);"><path d="M60.0293 31.1767L56.8453 27.8556L32.3918 53.3508V0H32.1682H27.8904H27.6668V53.3508L3.2133 27.8556L0.0292969 31.1767L27.6778 60H27.8904H32.1682H32.3808L60.0293 31.1767Z" fill="currentColor"></path></svg>
           <h2 data-reveal="head" style="font-size: var(--font-size-5xl); font-weight: 600; line-height: 0.92; color: var(--type-heading); letter-spacing: -0.02em; max-width: 20ch; text-wrap: balance;">Careers</h2>
           <p data-reveal="head" style="font-size: var(--font-size-base); color: var(--type-body); line-height: 1.45; max-width: 70%; text-wrap: pretty;">Our relentless focus on career development and integrated work placements is what sets Aston apart. From day one, you get the industry connections and support to turn your ambition into a career.</p>
-          <div data-reveal="band" style="width: 100%; margin-top: var(--spacing-base); aspect-ratio: 16 / 7; overflow: hidden;">
-            <div role="img" aria-label="{{ bandCareersAlt }}" style="width: 100%; height: 100%; background-image: {{ bandCareersCss }}; background-size: cover; background-position: center;"></div>
-          </div>
         </div>
         </div>
       </div>
@@ -2841,12 +2829,6 @@ class Component extends DCLogic {
       drawerPhase: st.drawerClosing ? 'closing' : 'open',
       navJustify: 'flex-start',
       navItemFlex: st.phone ? '0 0 auto' : '1 1 0%',
-      bandCampusCss: 'url("' + this.IMG.campusSkyline + '")',
-      bandCampusAlt: this.IMG_ALT.campusSkyline,
-      bandLifeSrc: this.IMG.groupStudy,
-      bandLifeAlt: this.IMG_ALT.groupStudy,
-      bandCareersCss: 'url("' + this.IMG.graduation + '")',
-      bandCareersAlt: this.IMG_ALT.graduation,
       navGap: st.phone ? 'var(--spacing-base)' : '0px',
       navCol: st.wide ? '2' : '1 / -1',
       editChoices: () => this.setState({ screen: 'steps', step: 2, editing: true, prefsOpen: false, drawerOpen: false, lightbox: null }, () => { if (typeof window !== 'undefined') window.scrollTo(0, 0); }),
@@ -2874,14 +2856,6 @@ class Component extends DCLogic {
       stats: this.STATS,
 
       subjectName: subj.name,
-      subjectBandCss: (() => {
-        const pick = this.bandKey(inter, courses);
-        return pick ? 'url("' + this.IMG[pick] + '")' : 'none';
-      })(),
-      subjectBandAlt: (() => {
-        const pick = this.bandKey(inter, courses);
-        return this.IMG_ALT[pick] || inter.heroAlt;
-      })(),
       subjectHero: this.IMG[inter.hero],
       subjectHeroAlt: inter.heroAlt,
       coursesIntro: isStudent
