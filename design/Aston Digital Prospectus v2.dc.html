@@ -630,10 +630,6 @@
         </div>
       </div>
       <div style="position: relative; z-index: 1; background: var(--primary-bg);">
-      <div style="max-width: 1280px; margin: 0 auto; padding: var(--spacing-m) var(--spacing-gutters) 0; display: flex; flex-direction: column; gap: var(--spacing-sm);">
-        <h3 style="font-size: var(--font-size-3xl); font-weight: 600; line-height: 1.05; color: var(--type-heading); max-width: 70%; text-wrap: pretty;">{{ subjectName }}</h3>
-        <p style="font-size: var(--font-size-base); color: var(--type-body); line-height: 1.35; max-width: 54ch; text-wrap: pretty;">{{ coursesIntro }}</p>
-      </div>
       <div style="max-width: 1280px; margin: 0 auto; padding: var(--spacing-slice-margin) var(--spacing-gutters); display: flex; flex-direction: column; gap: var(--spacing-slice-margin);">
 
         <div style="display: flex; flex-direction: column; gap: var(--spacing-base);">
@@ -2899,14 +2895,8 @@ class Component extends DCLogic {
           pick: () => this.setState({ courseFilter: f.id })
         };
       }),
-      subjectName: chosenSubjObjs.map((sb) => sb.name).join(', '),
       subjectHero: this.IMG[inter.hero],
       subjectHeroAlt: inter.heroAlt,
-      coursesIntro: multiSubject
-        ? 'You picked ' + chosenSubjObjs.length + ' subjects, so the courses below span all of them \u2014 each card says which subject it belongs to. Everything else in this prospectus covers all ' + chosenSubjObjs.length + '.'
-        : isStudent
-        ? subj.intro
-        : (p.userType === 'parent' ? subj.intro + ' Every undergraduate course includes the option of a placement year, and we guarantee accommodation for first-year students.' : p.userType === 'agent' ? subj.intro + ' Entry requirements by country, English language levels and foundation routes are all set out below.' : subj.intro + ' Entry requirements, contextual offers and foundation routes are all set out below.'),
       courseCountLabel: (st.courseFilter ? courses.filter((c) => c.subjectId === st.courseFilter).length : courses.length) + ' courses' + (multiSubject && !st.courseFilter ? ' across ' + chosenSubjObjs.length + ' subjects' : '') + (intl && ug ? ', including foundation routes' : ''),
       courseAllLabel: multiSubject ? 'View all these courses on aston.ac.uk' : 'View all ' + subj.short + ' courses on aston.ac.uk',
       courses: (st.courseFilter ? courses.filter((c) => c.subjectId === st.courseFilter) : courses).map((c) => ({
