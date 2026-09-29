@@ -642,9 +642,16 @@
             <p style="font-family: ui-monospace, Menlo, monospace; font-size: var(--font-size-xs); color: #f5a7ff; border-left: var(--borders-marker) solid #f5a7ff; padding-left: var(--spacing-sm); line-height: 1.4;">{{ noteCourses }}</p>
           </sc-if>
         <div style="display: flex; flex-direction: column; gap: var(--spacing-xs);">
-          <ul ref="{{ railCoursesRef }}" style="display: flex; gap: var(--spacing-base); overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; -webkit-overflow-scrolling: touch; padding-bottom: var(--spacing-2xs); align-items: stretch;">
+          <sc-if value="{{ showCourseFilter }}" hint-placeholder-val="{{ false }}">
+          <div role="group" aria-label="Filter courses by subject" style="display: flex; flex-wrap: wrap; gap: var(--spacing-xs); padding-bottom: var(--spacing-base);">
+            <sc-for list="{{ courseFilters }}" as="f" hint-placeholder-count="4">
+              <button type="button" onClick="{{ f.pick }}" aria-pressed="{{ f.on }}" style="min-height: 44px; padding: 0 var(--spacing-base); cursor: pointer; font-family: inherit; font-size: var(--font-size-s); font-weight: 500; white-space: nowrap; background: {{ f.bg }}; color: {{ f.fg }}; border: var(--borders-border-line) solid {{ f.border }}; transition: background 0.2s, color 0.2s, border-color 0.2s;">{{ f.label }}</button>
+            </sc-for>
+          </div>
+          </sc-if>
+          <ul style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr)); gap: var(--spacing-m) var(--spacing-base); align-items: stretch;">
             <sc-for list="{{ courses }}" as="c" hint-placeholder-count="4">
-              <li data-teaser data-reveal="card" style="--stagger: calc({{ $index }} * 0.1s); flex: 0 0 {{ railCardW }}; min-width: 0; scroll-snap-align: start; display: flex;">
+              <li data-teaser style="min-width: 0; display: flex;">
                 <button type="button" onClick="{{ c.open }}" style="width: 100%; text-align: left; padding: 0; background: none; border: none; cursor: pointer; display: flex; flex-direction: column; gap: var(--spacing-xs);">
                   <span style="position: relative; display: block; width: 100%; aspect-ratio: 400 / 225; overflow: hidden;">
                     <span data-teaser-img role="img" aria-label="{{ c.alt }}" style="display: block; width: 100%; height: 100%; background-image: {{ c.imgCss }}; background-size: cover; background-position: center;"></span>
@@ -660,19 +667,6 @@
               </li>
             </sc-for>
           </ul>
-          <sc-if value="{{ railCoursesShow }}" hint-placeholder-val="{{ false }}">
-          <div style="border-top: var(--borders-border-line) solid var(--primary-border); margin-top: var(--spacing-m); padding-top: var(--spacing-m); display: flex; align-items: center; justify-content: space-between; gap: var(--spacing-base);">
-            <div role="group" aria-label="Carousel position" style="display: flex; align-items: center; gap: var(--spacing-2xs);">
-              <sc-for list="{{ railCoursesPips }}" as="p" hint-placeholder-count="3">
-                <button type="button" data-pip onClick="{{ p.go }}" aria-label="{{ p.label }}" style="width: {{ p.w }};"></button>
-              </sc-for>
-            </div>
-            <div style="display: flex; gap: var(--spacing-xs);">
-            <button type="button" disabled="{{ railCoursesAtStart }}" data-rail-arrow data-flair onClick="{{ railCoursesPrev }}" aria-label="Scroll courses left"><span data-flair-shard aria-hidden="true"><span></span></span><span data-chev="prev" aria-hidden="true"><i></i><i></i></span></button>
-            <button type="button" disabled="{{ railCoursesAtEnd }}" data-rail-arrow data-flair onClick="{{ railCoursesNext }}" aria-label="Scroll courses right"><span data-flair-shard aria-hidden="true"><span></span></span><span data-chev="next" aria-hidden="true"><i></i><i></i></span></button>
-          </div>
-          </div>
-          </sc-if>
         </div>
         </div>
 
@@ -1374,6 +1368,7 @@ class Component extends DCLogic {
   state = {
     screen: 'landing',
     railUI: {},
+    courseFilter: null,
     editing: false,
     ambientPaused: false,
     step: 1,
@@ -2433,7 +2428,7 @@ class Component extends DCLogic {
       chosenSubjObjs.forEach((sb) => {
         (sb.courses || []).concat((intl && ug) ? (sb.foundation || []) : []).forEach((c) => {
           if (out.filter((x) => x.title === c.title).length) return;
-          out.push(Object.assign({}, c, { subjectName: sb.name, subjectShort: sb.short, subjectAccred: sb.accred }));
+          out.push(Object.assign({}, c, { subjectId: sb.id, subjectName: sb.name, subjectShort: sb.short, subjectAccred: sb.accred }));
         });
       });
       return out;
@@ -2890,6 +2885,18 @@ class Component extends DCLogic {
       openVideo: () => this.setState({ lightbox: { kind: 'video' } }),
       stats: this.STATS,
 
+      showCourseFilter: multiSubject,
+      courseFilters: [{ id: null, name: 'All subjects' }].concat(chosenSubjObjs.map((sb) => ({ id: sb.id, name: sb.name }))).map((f) => {
+        const on = (st.courseFilter || null) === f.id;
+        const n = f.id ? courses.filter((c) => c.subjectId === f.id).length : courses.length;
+        return {
+          label: f.name + ' (' + n + ')', on: on,
+          bg: on ? 'var(--btn-primary-bg)' : 'transparent',
+          fg: on ? 'var(--btn-primary-text)' : 'var(--type-heading)',
+          border: on ? 'var(--btn-primary-border)' : 'var(--primary-border)',
+          pick: () => this.setState({ courseFilter: f.id })
+        };
+      }),
       subjectName: chosenSubjObjs.map((sb) => sb.name).join(', '),
       subjectHero: this.IMG[inter.hero],
       subjectHeroAlt: inter.heroAlt,
@@ -2898,9 +2905,9 @@ class Component extends DCLogic {
         : isStudent
         ? subj.intro
         : (p.userType === 'parent' ? subj.intro + ' Every undergraduate course includes the option of a placement year, and we guarantee accommodation for first-year students.' : p.userType === 'agent' ? subj.intro + ' Entry requirements by country, English language levels and foundation routes are all set out below.' : subj.intro + ' Entry requirements, contextual offers and foundation routes are all set out below.'),
-      courseCountLabel: courses.length + ' courses' + (multiSubject ? ' across ' + chosenSubjObjs.length + ' subjects' : '') + (intl && ug ? ', including foundation routes' : ''),
+      courseCountLabel: (st.courseFilter ? courses.filter((c) => c.subjectId === st.courseFilter).length : courses.length) + ' courses' + (multiSubject && !st.courseFilter ? ' across ' + chosenSubjObjs.length + ' subjects' : '') + (intl && ug ? ', including foundation routes' : ''),
       courseAllLabel: multiSubject ? 'View all these courses on aston.ac.uk' : 'View all ' + subj.short + ' courses on aston.ac.uk',
-      courses: courses.map((c) => ({
+      courses: (st.courseFilter ? courses.filter((c) => c.subjectId === st.courseFilter) : courses).map((c) => ({
         title: c.title, alt: c.title, imgCss: ((this.IMG[c.img] || this.IMG[inter.hero]) ? 'url("' + (this.IMG[c.img] || this.IMG[inter.hero]) + '")' : 'none'),
         level: multiSubject ? c.subjectName : (ug ? 'Undergraduate' : 'Postgraduate taught'),
         meta: c.ucas + '  ·  ' + c.duration,
