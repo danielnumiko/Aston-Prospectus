@@ -678,22 +678,6 @@
         </div>
         </div>
 
-        <div data-theme="orange" data-reveal="up" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--spacing-base) var(--spacing-m); align-items: start; background: var(--secondary-bg); border: var(--borders-border-line) solid var(--primary-border); padding: var(--spacing-m);">
-          <div style="display: flex; flex-direction: column; gap: var(--spacing-xs);">
-            <div style="display: flex; align-items: center; gap: var(--spacing-xs);">
-              <svg width="34" height="34" viewBox="0 0 24 24" aria-hidden="true" focusable="false" style="color: var(--interactive-strong); flex-shrink: 0;"><path d="M12 2.6l2.6 5.5 6 .8-4.4 4.2 1.1 6-5.3-2.9-5.3 2.9 1.1-6L3.4 8.9l6-.8z" fill="currentColor"></path></svg>
-              <span style="font-size: var(--font-size-2xs); letter-spacing: 0.1em; text-transform: uppercase; color: var(--teaser-meta); font-weight: 500;">Accreditation</span>
-            </div>
-            <h3 style="font-size: var(--font-size-2xl); font-weight: 600; color: var(--type-heading); line-height: 1.1; text-wrap: balance;">{{ accredBy }}</h3>
-          </div>
-          <div style="display: flex; flex-direction: column; gap: var(--spacing-xs);">
-            <p style="font-size: var(--font-size-base); color: var(--type-body); line-height: 1.45; text-wrap: pretty;">{{ accredBody }}</p>
-            <sc-if value="{{ showNotes }}" hint-placeholder-val="{{ false }}">
-              <p style="font-family: ui-monospace, Menlo, monospace; font-size: var(--font-size-xs); color: #f5a7ff; border-left: var(--borders-marker) solid #f5a7ff; padding-left: var(--spacing-sm); line-height: 1.4;">{{ noteAccred }}</p>
-            </sc-if>
-          </div>
-        </div>
-
         <sc-if value="{{ hasScholarships }}" hint-placeholder-val="{{ true }}">
         <div style="display: flex; flex-direction: column; gap: var(--spacing-base);">
           <div style="display: flex; flex-direction: column; gap: var(--spacing-sm);">
@@ -2925,7 +2909,6 @@ class Component extends DCLogic {
         } } })
       })),
 
-      accredBy: accred.by, accredBody: accred.body,
       heroCtaLabel: heroCta.label, heroCtaTitle: heroCta.title, heroCtaBody: heroCta.body, heroCtaAction: heroCta.action, heroCtaHref: heroCta.href,
       hasEvents: events.length > 0, events: events,
       hasScholarships: scholarships.length > 0, scholarships: scholarships,
@@ -3169,7 +3152,6 @@ class Component extends DCLogic {
       railLifeNext: () => this.scrollRail('Life', 1),
       showNotes: !!this.props.showRuleNotes,
       noteCourses: 'Personalised by: subject + study level' + (intl && ug ? '. Foundation routes shown because user type is International student.' : '.'),
-      noteAccred: 'Personalised by: subject. Falls back to interest-area accreditation when the subject has none of its own.',
       noteHeroCta: 'Personalised by: study level + user type.',
       noteEvents: 'Personalised by: subject and/or study level. Component hidden entirely when nothing relevant exists.',
       noteScholarships: 'Personalised by: study level + user type. Hidden when nothing relevant exists.',
