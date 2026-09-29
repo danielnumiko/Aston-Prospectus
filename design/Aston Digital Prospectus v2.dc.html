@@ -124,6 +124,7 @@
   [data-rail-arrow]:not(:disabled):hover [data-chev="next"] i:nth-child(2) { transform: translateX(0); }
   [data-rail-arrow] > [data-flair-shard] > span { width: 800%; }
   [data-pip] { height: 4px; background: var(--type-heading); border: none; padding: 0; cursor: pointer; flex-shrink: 0; transition: width 0.3s ease; }
+  [data-slice-head] { padding-bottom: var(--spacing-heading-gap); }
   [data-course-list] { display: flex; flex-direction: column; }
   [data-course-list] > li { border-top: var(--borders-border-line) solid var(--primary-border); }
   [data-course-list] > li:last-child { border-bottom: var(--borders-border-line) solid var(--primary-border); }
@@ -645,7 +646,7 @@
       <div style="max-width: 1280px; margin: 0 auto; padding: var(--spacing-slice-margin) var(--spacing-gutters); display: flex; flex-direction: column; gap: var(--spacing-slice-margin);">
 
         <div style="display: flex; flex-direction: column; gap: var(--spacing-base);">
-          <div data-reveal="up" style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: var(--spacing-base);">
+          <div data-slice-head data-reveal="up" style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: var(--spacing-base);">
             <h3 style="font-size: var(--font-size-3xl); font-weight: 600; line-height: 1.05; color: var(--type-heading); max-width: 70%; text-wrap: pretty;">Courses for you</h3>
           </div>
           <sc-if value="{{ showNotes }}" hint-placeholder-val="{{ false }}">
@@ -685,7 +686,7 @@
 
         <sc-if value="{{ hasScholarships }}" hint-placeholder-val="{{ true }}">
         <div style="display: flex; flex-direction: column; gap: var(--spacing-base);">
-          <div style="display: flex; flex-direction: column; gap: var(--spacing-sm);">
+          <div data-slice-head style="display: flex; flex-direction: column; gap: var(--spacing-sm);">
             <h3 style="font-size: var(--font-size-3xl); font-weight: 600; line-height: 1.05; color: var(--type-heading); max-width: 70%; text-wrap: pretty;">Scholarships and funding</h3>
             <p style="font-size: var(--font-size-s); color: var(--type-body); max-width: 70%; text-wrap: pretty;">{{ scholarshipNote }}</p>
           </div>
@@ -702,7 +703,7 @@
         </sc-if>
 
         <div style="display: flex; flex-direction: column; gap: var(--spacing-base);">
-          <div style="display: flex; flex-direction: column; gap: var(--spacing-sm);">
+          <div data-slice-head style="display: flex; flex-direction: column; gap: var(--spacing-sm);">
             <h3 style="font-size: var(--font-size-3xl); font-weight: 600; line-height: 1.05; color: var(--type-heading); max-width: 70%; text-wrap: pretty;">Student stories</h3>
             <p style="font-size: var(--font-size-s); color: var(--type-body); max-width: 70%; text-wrap: pretty;">{{ studyStoriesNote }}</p>
           </div>
@@ -741,7 +742,7 @@
         </div>
 
         <div style="display: flex; flex-direction: column; gap: var(--spacing-base);">
-          <div style="display: flex; flex-direction: column; gap: var(--spacing-sm);">
+          <div data-slice-head style="display: flex; flex-direction: column; gap: var(--spacing-sm);">
             <h3 style="font-size: var(--font-size-3xl); font-weight: 600; line-height: 1.05; color: var(--type-heading); max-width: 70%; text-wrap: pretty;">How to apply</h3>
             <p style="font-size: var(--font-size-s); color: var(--type-body); max-width: 70%; text-wrap: pretty;">{{ applyNote }}</p>
           </div>
@@ -758,7 +759,7 @@
         </div>
 
         <sc-if value="{{ hasEvents }}" hint-placeholder-val="{{ true }}">
-        <div data-reveal="up" style="display: flex; flex-direction: column; gap: var(--spacing-base);">
+        <div data-slice-head data-reveal="up" style="display: flex; flex-direction: column; gap: var(--spacing-base);">
           <h3 style="font-size: var(--font-size-3xl); font-weight: 600; line-height: 1.05; color: var(--type-heading); max-width: 70%; text-wrap: pretty;">Come and see us</h3>
           <ul data-reveal="up" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: var(--spacing-base);">
             <sc-for list="{{ events }}" as="e" hint-placeholder-count="3">
@@ -795,7 +796,7 @@
       <div style="position: relative; z-index: 1; background: var(--primary-bg);">
       <div style="max-width: 1280px; margin: 0 auto; padding: var(--spacing-slice-margin) var(--spacing-gutters); display: flex; flex-direction: column; gap: var(--spacing-slice-margin);">
         <div style="display: flex; flex-direction: column; gap: var(--spacing-m);">
-        <div data-reveal="up" style="display: flex; flex-direction: column; gap: var(--spacing-base);">
+        <div data-slice-head data-reveal="up" style="display: flex; flex-direction: column; gap: var(--spacing-base);">
           <h3 style="font-size: var(--font-size-3xl); font-weight: 600; line-height: 1.05; color: var(--type-heading); max-width: 70%; text-wrap: pretty;">{{ tourHeading }}</h3>
           <p style="font-size: var(--font-size-base); color: var(--type-body); line-height: 1.35; max-width: 70%; text-wrap: pretty;">{{ tourBody }}</p>
         </div>
@@ -804,7 +805,7 @@
         </div>
         </div>
 
-        <div data-reveal="up" style="display: flex; flex-direction: column; gap: var(--spacing-base);">
+        <div data-slice-head data-reveal="up" style="display: flex; flex-direction: column; gap: var(--spacing-base);">
           <h3 style="font-size: var(--font-size-3xl); font-weight: 600; line-height: 1.05; color: var(--type-heading); max-width: 70%; text-wrap: pretty;">Around the campus</h3>
         <div style="display: flex; flex-direction: column; gap: var(--spacing-xs);">
           <ul ref="{{ railCampusRef }}" style="display: flex; gap: var(--spacing-base); overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; -webkit-overflow-scrolling: touch; padding-bottom: var(--spacing-2xs); align-items: stretch;">
@@ -840,7 +841,7 @@
           <div data-reveal="up" style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: var(--spacing-base);">
             <div style="display: flex; flex-direction: column; gap: var(--spacing-xs); width: 70%; min-width: 0;">
               <div style="display: flex; align-items: center; gap: var(--spacing-2xs);">
-                <div data-teaser-marker style="width: 16px; height: 8px; background: var(--primary-accent); flex-shrink: 0;"></div>
+                <div data-slice-head data-teaser-marker style="width: 16px; height: 8px; background: var(--primary-accent); flex-shrink: 0;"></div>
                 <span style="font-size: var(--font-size-2xs); letter-spacing: 0.1em; text-transform: uppercase; color: var(--teaser-meta); font-weight: 500;">YouTube Shorts</span>
               </div>
               <h3 style="font-size: var(--font-size-3xl); font-weight: 600; line-height: 1.05; color: var(--type-heading); max-width: 70%; text-wrap: pretty;">See the campus in 60 seconds</h3>
@@ -894,13 +895,13 @@
         </div>
       </div>
       <div style="position: relative; z-index: 1; background: var(--primary-bg);">
-      <div style="max-width: 1280px; margin: 0 auto; padding: var(--spacing-m) var(--spacing-gutters) 0; display: flex; flex-direction: column; gap: var(--spacing-sm);">
+      <div data-slice-head style="max-width: 1280px; margin: 0 auto; padding: var(--spacing-m) var(--spacing-gutters) 0; display: flex; flex-direction: column; gap: var(--spacing-sm);">
         <h3 style="font-size: var(--font-size-3xl); font-weight: 600; line-height: 1.05; color: var(--type-heading); max-width: 70%; text-wrap: pretty;">One campus, in the middle of Birmingham</h3>
         <p style="font-size: var(--font-size-base); color: var(--type-body); line-height: 1.35; max-width: 56ch; text-wrap: pretty;">{{ lifeIntro }}</p>
       </div>
       <div style="max-width: 1280px; margin: 0 auto; padding: var(--spacing-slice-margin) var(--spacing-gutters); display: flex; flex-direction: column; gap: var(--spacing-slice-margin);">
 
-        <div data-reveal="up" style="display: flex; flex-direction: column; gap: var(--spacing-sm);">
+        <div data-slice-head data-reveal="up" style="display: flex; flex-direction: column; gap: var(--spacing-sm);">
           <h3 style="font-size: var(--font-size-3xl); font-weight: 600; line-height: 1.05; color: var(--type-heading); max-width: 70%; text-wrap: pretty;">The city at the gates</h3>
           <ul data-reveal="up" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--spacing-base);">
             <sc-for list="{{ birminghamPages }}" as="b" hint-placeholder-count="6">
@@ -914,7 +915,7 @@
         </div>
 
         <div style="display: flex; flex-direction: column; gap: var(--spacing-base);">
-          <div style="display: flex; flex-direction: column; gap: var(--spacing-base);">
+          <div data-slice-head style="display: flex; flex-direction: column; gap: var(--spacing-base);">
             <h3 style="font-size: var(--font-size-3xl); font-weight: 600; line-height: 1.05; color: var(--type-heading); max-width: 70%; text-wrap: pretty;">{{ costHeading }}</h3>
             <p style="font-size: var(--font-size-base); color: var(--type-body); line-height: 1.4; max-width: 70%; text-wrap: pretty;">{{ costBody }}</p>
           </div>
@@ -953,7 +954,7 @@
 
         <div style="display: flex; flex-direction: column; gap: var(--spacing-base);">
           <div style="display: flex; flex-direction: column; gap: var(--spacing-base);">
-            <div style="display: flex; flex-direction: column; gap: var(--spacing-sm);">
+            <div data-slice-head style="display: flex; flex-direction: column; gap: var(--spacing-sm);">
               <h3 style="font-size: var(--font-size-3xl); font-weight: 600; color: var(--type-heading); line-height: 1.05; max-width: 70%; text-wrap: pretty;">{{ accomHeading }}</h3>
               <p style="font-size: var(--font-size-base); color: var(--type-body); line-height: 1.4; max-width: 70%; text-wrap: pretty;">{{ accomBody }}</p>
             </div>
@@ -1003,7 +1004,7 @@
           <div data-reveal="up" style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: var(--spacing-base);">
             <div style="display: flex; flex-direction: column; gap: var(--spacing-xs); width: 70%; min-width: 0;">
               <div style="display: flex; align-items: center; gap: var(--spacing-2xs);">
-                <div data-teaser-marker style="width: 16px; height: 8px; background: var(--primary-accent); flex-shrink: 0;"></div>
+                <div data-slice-head data-teaser-marker style="width: 16px; height: 8px; background: var(--primary-accent); flex-shrink: 0;"></div>
                 <span style="font-size: var(--font-size-2xs); letter-spacing: 0.1em; text-transform: uppercase; color: var(--teaser-meta); font-weight: 500;">TikTok</span>
               </div>
               <h3 style="font-size: var(--font-size-3xl); font-weight: 600; line-height: 1.05; color: var(--type-heading); max-width: 70%; text-wrap: pretty;">Straight from our students&rsquo; feeds</h3>
@@ -1043,7 +1044,7 @@
           </div>
         </div>
 
-        <div data-reveal="up" style="display: flex; flex-direction: column; gap: var(--spacing-base);">
+        <div data-slice-head data-reveal="up" style="display: flex; flex-direction: column; gap: var(--spacing-base);">
           <h3 style="font-size: var(--font-size-3xl); font-weight: 600; line-height: 1.05; color: var(--type-heading); max-width: 70%; text-wrap: pretty;">Life at Aston, in their words</h3>
         <div style="display: flex; flex-direction: column; gap: var(--spacing-xs);">
           <ul ref="{{ railLifeRef }}" style="display: flex; gap: var(--spacing-base); overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; -webkit-overflow-scrolling: touch; padding-bottom: var(--spacing-2xs); align-items: stretch;">
@@ -1110,7 +1111,7 @@
         </ul>
 
         <div style="display: flex; flex-direction: column; gap: var(--spacing-base);">
-          <div style="display: flex; flex-direction: column; gap: var(--spacing-sm);">
+          <div data-slice-head style="display: flex; flex-direction: column; gap: var(--spacing-sm);">
             <h3 style="font-size: var(--font-size-3xl); font-weight: 600; line-height: 1.05; color: var(--type-heading); max-width: 70%; text-wrap: pretty;">The Aston Careers Advantage</h3>
             <p style="font-size: var(--font-size-s); color: var(--type-body); max-width: 70%; text-wrap: pretty;">{{ careersNote }}</p>
           </div>
