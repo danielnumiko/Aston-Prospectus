@@ -124,6 +124,9 @@
   [data-rail-arrow]:not(:disabled):hover [data-chev="next"] i:nth-child(2) { transform: translateX(0); }
   [data-rail-arrow] > [data-flair-shard] > span { width: 800%; }
   [data-pip] { height: 4px; background: var(--type-heading); border: none; padding: 0; cursor: pointer; flex-shrink: 0; transition: width 0.3s ease; }
+  [data-course-grid] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  @media (max-width: 1100px) { [data-course-grid] { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 640px) { [data-course-grid] { grid-template-columns: minmax(0, 1fr); } }
   @media (prefers-reduced-motion: reduce) { [data-reveal] { opacity: 1; animation: none !important; } }
   @media (prefers-reduced-motion: reduce) { [data-teaser] [data-teaser-img], [data-teaser-flair], [data-arrow-slide] i, [data-flair] > [data-flair-shard] { transition: none !important; } }
   :root {
@@ -636,7 +639,6 @@
         <div style="display: flex; flex-direction: column; gap: var(--spacing-base);">
           <div data-reveal="up" style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: var(--spacing-base);">
             <h3 style="font-size: var(--font-size-3xl); font-weight: 600; line-height: 1.05; color: var(--type-heading); max-width: 70%; text-wrap: pretty;">Courses for you</h3>
-            <a href="https://www.aston.ac.uk/study/courses" target="_blank" rel="noreferrer" style="display: inline-flex; align-items: center; min-height: 44px; font-size: var(--font-size-s); font-weight: 500;">More courses</a>
           </div>
           <sc-if value="{{ showNotes }}" hint-placeholder-val="{{ false }}">
             <p style="font-family: ui-monospace, Menlo, monospace; font-size: var(--font-size-xs); color: #f5a7ff; border-left: var(--borders-marker) solid #f5a7ff; padding-left: var(--spacing-sm); line-height: 1.4;">{{ noteCourses }}</p>
@@ -649,7 +651,7 @@
             </sc-for>
           </div>
           </sc-if>
-          <ul style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr)); gap: var(--spacing-m) var(--spacing-base); align-items: stretch;">
+          <ul data-course-grid style="display: grid; gap: var(--spacing-m) var(--spacing-base); align-items: stretch;">
             <sc-for list="{{ courses }}" as="c" hint-placeholder-count="4">
               <li data-teaser style="min-width: 0; display: flex;">
                 <button type="button" onClick="{{ c.open }}" style="width: 100%; text-align: left; padding: 0; background: none; border: none; cursor: pointer; display: flex; flex-direction: column; gap: var(--spacing-xs);">
@@ -2885,7 +2887,7 @@ class Component extends DCLogic {
       openVideo: () => this.setState({ lightbox: { kind: 'video' } }),
       stats: this.STATS,
 
-      showCourseFilter: multiSubject,
+      showCourseFilter: multiSubject && courses.length >= 8,
       courseFilters: [{ id: null, name: 'All subjects' }].concat(chosenSubjObjs.map((sb) => ({ id: sb.id, name: sb.name }))).map((f) => {
         const on = (st.courseFilter || null) === f.id;
         const n = f.id ? courses.filter((c) => c.subjectId === f.id).length : courses.length;
