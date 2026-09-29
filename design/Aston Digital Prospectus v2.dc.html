@@ -2197,7 +2197,7 @@ class Component extends DCLogic {
     if (start === 'steps') {
       this.setState({ screen: 'steps', step: 1 });
     } else if (start === 'prospectus') {
-      this.setState((s) => ({ screen: 'prospectus', profile: Object.assign({}, s.profile, { interest: 'business-finance', subject: 'accounting', firstName: s.profile.firstName || 'Priya', userType: 'intl', country: 'India' }) }));
+      this.setState((s) => ({ screen: 'prospectus', profile: Object.assign({}, s.profile, { interest: 'business-finance', interests: ['business-finance'], subject: 'accounting', subjects: ['accounting', 'economics', 'business'], firstName: s.profile.firstName || 'Priya', userType: 'intl', country: 'India' }) }));
     }
     this.observe();
     this.syncAmbientSrc();
@@ -2414,6 +2414,8 @@ class Component extends DCLogic {
     const isStudent = p.userType === 'uk' || p.userType === 'intl';
     const name = (p.firstName || '').trim();
     const levelWord = ug ? 'undergraduate' : 'postgraduate taught';
+    const chosenInterestNames = this.chosenInterests().map((id) => (this.INTERESTS.filter((x) => x.id === id)[0] || {}).name).filter(Boolean);
+    const chosenSubjectNames = this.chosenSubjects().map((id) => (this.SUBJECTS.filter((x) => x.id === id)[0] || {}).name).filter(Boolean);
     const inDiscovery = st.discoveryIdx >= 0;
 
     const previewId = st.preview || (this.subjectsFor(p.interest || inter.id)[0] || subj).id;
@@ -2797,8 +2799,8 @@ class Component extends DCLogic {
 
       chipSubject: subj.name,
       profileRows: [
-        { label: 'Interest area', value: inter.name },
-        { label: 'Subject', value: subj.name },
+        { label: chosenInterestNames.length > 1 ? 'Interest areas' : 'Interest area', value: chosenInterestNames.join(', ') || inter.name },
+        { label: chosenSubjectNames.length > 1 ? 'Subjects' : 'Subject', value: chosenSubjectNames.join(', ') || subj.name },
         { label: 'Study level', value: ug ? 'Undergraduate' : 'Postgraduate taught' },
         { label: 'Reading as', value: (this.AUDIENCES.filter((a) => a.id === p.userType)[0] || this.AUDIENCES[0]).name },
         { label: 'Starting', value: p.entryYear }
@@ -2846,7 +2848,7 @@ class Component extends DCLogic {
       })),
 
       homeHeading: name ? name + ', this one is yours.' : 'This one is yours.',
-      homeBody: 'This prospectus has been built around ' + subj.name + ' at ' + levelWord + ' level, for ' + (isStudent ? 'a prospective ' + (intl ? 'international' : 'UK') + ' student' : p.userType === 'parent' ? 'a parent or guardian' : p.userType === 'agent' ? 'an agent partner in ' + p.country : 'a teacher or adviser') + ', starting ' + p.entryYear + '. Five sections, no course catalogue to wade through.',
+      homeBody: 'Built for ' + (isStudent ? 'a prospective ' + (intl ? 'international' : 'UK') + ' student' : p.userType === 'parent' ? 'a parent or guardian' : p.userType === 'agent' ? 'an agent partner in ' + p.country : 'a teacher or adviser') + ' at ' + levelWord + ' level, starting ' + p.entryYear + '. Everything here follows the subjects in Your choices \u2014 open it any time to change them. Five sections, no course catalogue to wade through.',
       welcomeIntro: isStudent
         ? (ug
           ? 'Every undergraduate course here is built around real time in industry — a placement year, or a clinical or industry internship — with more than 200 employers recruiting on campus each year. It shows in where our graduates end up.'
