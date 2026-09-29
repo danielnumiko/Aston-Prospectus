@@ -2106,6 +2106,23 @@ class Component extends DCLogic {
     { icon: '#ico-eye', name: 'Green space', detail: 'Cannon Hill Park, the Botanical Gardens and the Grand Union Canal, when you need somewhere quiet.' }
   ];
 
+  WIDE_STORIES = {
+    ug: [
+      { title: 'What my placement year actually changed', kind: 'Placement year', img: 'presenting' },
+      { title: 'First year at Aston: what I wish I had known', kind: 'Student story', img: 'groupStudy' },
+      { title: 'How I used the Careers Advantage from day one', kind: 'Careers', img: 'studentSupport' },
+      { title: 'Studying in Birmingham as an international student', kind: 'Student story', img: 'campusSkyline' },
+      { title: 'Where an Aston degree took me', kind: 'Careers', img: 'graduation' }
+    ],
+    pgt: [
+      { title: 'Going back to study after four years working', kind: 'Student story', img: 'pgStudy' },
+      { title: 'What a masters did for my salary', kind: 'Careers', img: 'graduation' },
+      { title: 'Balancing a masters with a job', kind: 'Student story', img: 'lectureLaptops' },
+      { title: 'How the careers team works with postgraduates', kind: 'Careers', img: 'studentSupport' },
+      { title: 'Why I chose Aston for postgraduate study', kind: 'Student story', img: 'presenting' }
+    ]
+  };
+
   LIFE_STORIES = [
     { title: 'My first week at Aston: what I wish I\u2019d known before starting university', kind: 'Student story', img: 'lectureLaptops' },
     { title: 'Living on campus: what Aston Student Village is really like', kind: 'Accommodation', img: 'accom' },
@@ -2468,17 +2485,27 @@ class Component extends DCLogic {
       });
       return assignCourseImages(out);
     })();
+    const storyLevels = {};
     const stories = (() => {
       const out = [];
       chosenSubjObjs.forEach((sb) => {
-        (sb.stories && sb.stories.length ? sb.stories : (inter.stories || [])).forEach((st) => {
+        // each subject falls back through its own interest area, not the first subject's
+        const own = (sb.stories && sb.stories.length) ? sb.stories : null;
+        const area = own ? null : (this.INTERESTS.filter((x) => x.id === sb.interest)[0] || inter);
+        const areaStories = (area && area.stories && area.stories.length) ? area.stories : null;
+        const wide = (this.WIDE_STORIES[ug ? 'ug' : 'pgt'] || []);
+        const src = own || areaStories || wide;
+        storyLevels[sb.id] = own ? 'subject' : (areaStories ? 'interest' : 'wide');
+        src.forEach((st) => {
           if (out.filter((x) => x.title === st.title).length) return;
           out.push(st);
         });
       });
       return out.slice(0, 6);
     })();
-    const storiesLevel = subj.stories && subj.stories.length ? 'subject' : 'interest';
+    const levelsUsed = chosenSubjObjs.map((sb) => storyLevels[sb.id]);
+    const storiesLevel = levelsUsed.indexOf('subject') > -1 && levelsUsed.every((l) => l === 'subject')
+      ? 'subject' : (levelsUsed.indexOf('wide') > -1 && levelsUsed.every((l) => l === 'wide') ? 'wide' : 'mixed');
     const accred = subj.accred || inter.accred;
 
     const events = [];
@@ -2964,7 +2991,11 @@ class Component extends DCLogic {
       applyAdvice: (() => { const ic = this.icoSet(applyAdvice, (a) => a.title + ' ' + a.detail); return applyAdvice.map((a, i) => ({ title: a.title, detail: a.detail, iconPaths: ic[i], href: a.href || 'https://www.aston.ac.uk/study/how-to-apply' })); })(),
       applyNote: !isStudent ? (p.userType === 'parent' ? 'The steps your son or daughter will go through, and where you can help.' : p.userType === 'agent' ? 'The process your applicants will follow, and what our team needs from you.' : 'The process your students will follow, and where your support matters most.') : (intl ? 'What the process looks like from outside the UK, step by step.' : 'What the process looks like from here, step by step.'),
       studyStories: stories.map((s) => ({ title: s.title, kind: s.kind, imgCss: (this.IMG[s.img] ? 'url("' + this.IMG[s.img] + '")' : 'none'), alt: s.kind })),
-      studyStoriesNote: storiesLevel === 'subject' ? 'What the course is actually like, from ' + subj.short + ' students and recent graduates.' : 'No ' + subj.short + ' stories yet, so these come from across ' + inter.name.toLowerCase() + '.',
+      studyStoriesNote: storiesLevel === 'subject'
+        ? 'What the course is actually like, from ' + (multiSubject ? 'our' : subj.short) + ' students and recent graduates.'
+        : storiesLevel === 'wide'
+        ? 'No stories for ' + (multiSubject ? 'these subjects' : subj.short) + ' yet, so these come from across Aston at ' + levelWord + ' level.'
+        : 'Some of these come from the wider subject area, where we do not have stories for your exact choice yet.',
 
       tourHeading: 'See where you would actually be',
       tourBody: 'A 360° tour of the spaces you would use on ' + subj.short + ', plus the campus around them. Everything on one site, five minutes\u2019 walk from the city centre.',
