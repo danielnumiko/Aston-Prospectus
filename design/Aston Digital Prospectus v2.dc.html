@@ -3098,7 +3098,7 @@ class Component extends DCLogic {
       closingSecondaryLabel: st.readOnly ? 'Save a copy of this' : 'Save or share this',
       lbIsShare: !!lb && lb.kind === 'share',
       openShare: () => this.setState({ lightbox: { kind: 'share' }, shareSent: false, copied: false }),
-      shareDescribe: [subj.name, ug ? 'undergraduate' : 'postgraduate taught', (this.AUDIENCES.filter((a) => a.id === p.userType)[0] || {}).name || ''].filter(Boolean).join(', ').toLowerCase(),
+      shareDescribe: [ug ? 'undergraduate' : 'postgraduate taught', (this.AUDIENCES.filter((a) => a.id === p.userType)[0] || {}).name || ''].filter(Boolean).join(', ').toLowerCase(),
       shareTabs: [
         { id: 'me', label: 'Save for me' },
         { id: 'other', label: 'Share it' }
