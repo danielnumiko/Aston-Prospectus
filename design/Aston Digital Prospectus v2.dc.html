@@ -301,7 +301,7 @@
         <span data-inline data-select><span data-ghost aria-hidden="true">{{ levelLabel }}</span><select value="{{ level }}" onChange="{{ setLevel }}" aria-label="Study level"><sc-for list="{{ levelOptions }}" as="l" hint-placeholder-count="2"><option value="{{ l.value }}">{{ l.label }}</option></sc-for></select><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="3" fill="none"></path></svg></span>
         study, starting
         <span data-inline data-select><span data-ghost aria-hidden="true">{{ entryYearLabel }}</span><select value="{{ entryYear }}" onChange="{{ setEntryYear }}" aria-label="When you plan to start"><sc-for list="{{ entryYears }}" as="y" hint-placeholder-count="4"><option value="{{ y.value }}">{{ y.label }}</option></sc-for></select><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="3" fill="none"></path></svg></span>.
-        Send my prospectus to
+        {{ sendLabel }}
         <span data-inline><input type="email" value="{{ email }}" onInput="{{ setEmail }}" size="{{ emailSize }}" autoComplete="email" inputMode="email" placeholder="enter email" aria-label="Your email address"></span>.
         </p>
         </sc-if>
@@ -2785,6 +2785,7 @@ class Component extends DCLogic {
       otherMarkets: this.OTHER_MARKETS.map((c) => ({ value: c, label: c })),
       firstNameSize: Math.max(12, (p.firstName || '').length + 1),
       emailSize: Math.max(13, (p.email || '').length + 1),
+      sendLabel: isStudent ? 'Send my prospectus to' : 'Send the prospectus to',
       setFirstName: (e) => this.setProfile({ firstName: e.target.value }),
       setEmail: (e) => this.setProfile({ email: e.target.value }),
       setEntryYear: (e) => this.setProfile({ entryYear: e.target.value }),
