@@ -2422,8 +2422,32 @@ class Component extends DCLogic {
     const previewId = st.preview || (this.subjectsFor(p.interest || inter.id)[0] || subj).id;
     const previewSubj = this.SUBJECTS.find((s) => s.id === previewId) || subj;
 
-    const courses = subj.courses.concat(intl && ug ? subj.foundation : []);
-    const stories = (subj.stories && subj.stories.length ? subj.stories : inter.stories);
+    const chosenSubjObjs = (() => {
+      const ids = this.chosenSubjects();
+      const list = ids.map((id) => this.SUBJECTS.filter((x) => x.id === id)[0]).filter(Boolean);
+      return list.length ? list : [subj];
+    })();
+    const multiSubject = chosenSubjObjs.length > 1;
+    const courses = (() => {
+      const out = [];
+      chosenSubjObjs.forEach((sb) => {
+        (sb.courses || []).concat((intl && ug) ? (sb.foundation || []) : []).forEach((c) => {
+          if (out.filter((x) => x.title === c.title).length) return;
+          out.push(Object.assign({}, c, { subjectName: sb.name, subjectShort: sb.short, subjectAccred: sb.accred }));
+        });
+      });
+      return out;
+    })();
+    const stories = (() => {
+      const out = [];
+      chosenSubjObjs.forEach((sb) => {
+        (sb.stories && sb.stories.length ? sb.stories : (inter.stories || [])).forEach((st) => {
+          if (out.filter((x) => x.title === st.title).length) return;
+          out.push(st);
+        });
+      });
+      return out.slice(0, 6);
+    })();
     const storiesLevel = subj.stories && subj.stories.length ? 'subject' : 'interest';
     const accred = subj.accred || inter.accred;
 
@@ -2866,31 +2890,33 @@ class Component extends DCLogic {
       openVideo: () => this.setState({ lightbox: { kind: 'video' } }),
       stats: this.STATS,
 
-      subjectName: subj.name,
+      subjectName: chosenSubjObjs.map((sb) => sb.name).join(', '),
       subjectHero: this.IMG[inter.hero],
       subjectHeroAlt: inter.heroAlt,
-      coursesIntro: isStudent
+      coursesIntro: multiSubject
+        ? 'You picked ' + chosenSubjObjs.length + ' subjects, so the courses below span all of them \u2014 each card says which subject it belongs to. Everything else in this prospectus covers all ' + chosenSubjObjs.length + '.'
+        : isStudent
         ? subj.intro
         : (p.userType === 'parent' ? subj.intro + ' Every undergraduate course includes the option of a placement year, and we guarantee accommodation for first-year students.' : p.userType === 'agent' ? subj.intro + ' Entry requirements by country, English language levels and foundation routes are all set out below.' : subj.intro + ' Entry requirements, contextual offers and foundation routes are all set out below.'),
-      courseCountLabel: courses.length + ' courses' + (intl && ug ? ', including foundation routes' : ''),
-      courseAllLabel: 'View all ' + subj.short + ' courses on aston.ac.uk',
+      courseCountLabel: courses.length + ' courses' + (multiSubject ? ' across ' + chosenSubjObjs.length + ' subjects' : '') + (intl && ug ? ', including foundation routes' : ''),
+      courseAllLabel: multiSubject ? 'View all these courses on aston.ac.uk' : 'View all ' + subj.short + ' courses on aston.ac.uk',
       courses: courses.map((c) => ({
         title: c.title, alt: c.title, imgCss: ((this.IMG[c.img] || this.IMG[inter.hero]) ? 'url("' + (this.IMG[c.img] || this.IMG[inter.hero]) + '")' : 'none'),
-        level: ug ? 'Undergraduate' : 'Postgraduate taught',
+        level: multiSubject ? c.subjectName : (ug ? 'Undergraduate' : 'Postgraduate taught'),
         meta: c.ucas + '  ·  ' + c.duration,
         clearing: !!c.clearing,
         open: () => this.setState({ lightbox: { kind: 'course', course: {
           title: c.title, why: c.why, alt: c.title,
           summary: [
-            { text: subj.intro + ' This course sits within ' + subj.name.toLowerCase() + ' at Aston, taught in Birmingham on a single campus where teaching, labs and the students\u2019 union sit within a ten-minute walk of each other.' },
-            { text: 'You will study over ' + c.duration.toLowerCase() + '. Typical entry: ' + c.entry.replace('See website \u2014 ', '') + '. ' + (accred.by ? accred.body : 'Assessment mixes coursework, projects and exams, with a personal tutor throughout.') }
+            { text: (c.subjectIntro || subj.intro) + ' This course sits within ' + (c.subjectName || subj.name).toLowerCase() + ' at Aston, taught in Birmingham on a single campus where teaching, labs and the students\u2019 union sit within a ten-minute walk of each other.' },
+            { text: 'You will study over ' + c.duration.toLowerCase() + '. Typical entry: ' + c.entry.replace('See website \u2014 ', '') + '. ' + ((c.subjectAccred || accred).by ? (c.subjectAccred || accred).body : 'Assessment mixes coursework, projects and exams, with a personal tutor throughout.') }
           ], imgCss: ((this.IMG[c.img] || this.IMG[inter.hero]) ? 'url("' + (this.IMG[c.img] || this.IMG[inter.hero]) + '")' : 'none'), clearing: !!c.clearing,
           facts: [
             { label: 'UCAS code', value: c.ucas },
             { label: 'Entry requirements', value: c.entry },
             { label: 'Duration', value: c.duration },
             { label: 'Start date', value: p.entryYear === 'I am not sure yet' ? 'September 2027' : p.entryYear }
-          ].concat(accred.by ? [{ label: 'Accreditation', value: accred.by }] : [])
+          ].concat((c.subjectAccred || accred).by ? [{ label: 'Accreditation', value: (c.subjectAccred || accred).by }] : [])
         } } })
       })),
 
