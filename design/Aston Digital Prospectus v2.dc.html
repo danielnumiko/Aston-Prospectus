@@ -392,7 +392,7 @@
                   </button>
                 </li>
               </sc-for>
-            </ul>
+            <li style="display: flex;"><button data-flair type="button" onClick="{{ clearInterests }}" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--spacing-xs); background: none; border: none; cursor: pointer; font-family: inherit; font-size: var(--font-size-xs); font-weight: 500; color: var(--type-body); text-decoration: underline; text-underline-offset: 3px; white-space: nowrap;" data-btn="true" style-hover="color: var(--type-heading);"><span data-flair-shard aria-hidden="true"><span></span></span>Clear all</button></li></ul>
           </sc-if>
           <sc-if value="{{ noneChosen }}" hint-placeholder-val="{{ true }}">
             <span style="font-size: var(--font-size-xs); color: var(--type-body); line-height: 1.4; text-wrap: pretty;">Tick as many areas as you like — they will show up here.</span>
@@ -473,7 +473,7 @@
                   </button>
                 </li>
               </sc-for>
-            </ul>
+            <li style="display: flex;"><button data-flair type="button" onClick="{{ clearSubjects }}" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--spacing-xs); background: none; border: none; cursor: pointer; font-family: inherit; font-size: var(--font-size-xs); font-weight: 500; color: var(--type-body); text-decoration: underline; text-underline-offset: 3px; white-space: nowrap;" data-btn="true" style-hover="color: var(--type-heading);"><span data-flair-shard aria-hidden="true"><span></span></span>Clear all</button></li></ul>
           </sc-if>
           <sc-if value="{{ noSubjects }}" hint-placeholder-val="{{ true }}">
             <span style="font-size: var(--font-size-xs); color: var(--type-body); line-height: 1.4; text-wrap: pretty;">Pick one or more subjects — your first choice leads the prospectus.</span>
@@ -2652,6 +2652,8 @@ class Component extends DCLogic {
       }),
       continueSubjects: () => this.setState({ screen: 'prospectus' }, () => this.save()),
       hasChosen: this.chosenInterests().length > 0,
+      clearInterests: () => this.setState({ profile: Object.assign({}, this.state.profile, { interests: [], interest: null, subjects: [], subject: null }), preview: null }),
+      clearSubjects: () => this.setState({ profile: Object.assign({}, this.state.profile, { subjects: [], subject: null }), preview: null }),
       noneChosen: this.chosenInterests().length === 0,
       pinnedCols: st.wide ? 'minmax(0, 1fr) auto' : 'minmax(0, 1fr)',
       pinnedSpacer: st.wide ? '104px' : '148px',
