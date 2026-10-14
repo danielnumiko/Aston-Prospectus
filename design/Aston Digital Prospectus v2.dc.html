@@ -1182,44 +1182,6 @@
 </div>
 </sc-if>
 
-<sc-if value="{{ prefsOpen }}" hint-placeholder-val="{{ false }}">
-<div style="position: fixed; inset: 0; z-index: 90; display: flex; justify-content: flex-end;">
-  <button type="button" aria-label="Close preferences" onClick="{{ closePrefs }}" style="position: absolute; inset: 0; background: rgba(12,12,12,0.6); border: none; cursor: pointer;"></button>
-  <div data-theme="black" style="position: relative; width: min(520px, 100%); height: 100%; overflow-y: auto; background: var(--primary-bg); border-left: var(--borders-border-line) solid var(--primary-accent); padding: var(--spacing-m) var(--spacing-m) var(--spacing-xl);">
-    <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: var(--spacing-base); padding-bottom: var(--spacing-m);">
-      <div style="display: flex; flex-direction: column; gap: var(--spacing-xs);">
-        <span style="font-size: var(--font-size-2xs); letter-spacing: 0.14em; text-transform: uppercase; color: var(--primary-accent); font-weight: 500;">Your prospectus</span>
-        <h2 style="font-size: var(--font-size-2xl); font-weight: 600; color: var(--type-heading); line-height: 1.1; text-wrap: balance;">Change what you see</h2>
-        <p style="font-size: var(--font-size-s); color: var(--type-body); line-height: 1.4; text-wrap: pretty;">Update anything here and the prospectus rebuilds around it. You will not lose your place.</p>
-      </div>
-      <button type="button" onClick="{{ closePrefs }}" aria-label="Close" style="background: none; border: none; padding: var(--spacing-xs); cursor: pointer; color: var(--type-heading); font-size: var(--font-size-l); line-height: 1;">✕</button>
-    </div>
-    <div style="display: flex; flex-direction: column; gap: var(--spacing-l);">
-      <sc-for list="{{ prefsGroups }}" as="g" hint-placeholder-count="5">
-        <div style="display: flex; flex-direction: column; gap: var(--spacing-sm);">
-          <span style="font-size: var(--font-size-2xs); letter-spacing: 0.1em; text-transform: uppercase; color: var(--teaser-meta); font-weight: 500;">{{ g.label }}</span>
-          <sc-if value="{{ g.editable }}" hint-placeholder-val="{{ true }}">
-          <div style="display: flex; flex-wrap: wrap; gap: var(--spacing-xs);">
-            <sc-for list="{{ g.options }}" as="o" hint-placeholder-count="3">
-              <button type="button" onClick="{{ o.pick }}" style="padding: var(--spacing-xs) var(--spacing-sm); background: {{ o.bg }}; color: {{ o.fg }}; border: var(--borders-border-line) solid {{ o.border }}; cursor: pointer; font-size: var(--font-size-xs); font-weight: 500;">{{ o.label }}</button>
-            </sc-for>
-          </div>
-          </sc-if>
-          <sc-if value="{{ g.locked }}" hint-placeholder-val="{{ false }}">
-          <div style="display: flex; align-items: center; gap: var(--spacing-xs); flex-wrap: wrap;">
-            <span style="padding: var(--spacing-xs) var(--spacing-sm); background: var(--secondary-bg); color: var(--type-heading); border: var(--borders-border-line) solid var(--primary-border); font-size: var(--font-size-xs); font-weight: 500; opacity: 0.75;">{{ g.lockedValue }}</span>
-            <span style="font-size: var(--font-size-2xs); color: var(--type-body); text-wrap: pretty;">Your details are fixed for now</span>
-          </div>
-          </sc-if>
-        </div>
-      </sc-for>
-      <button data-flair type="button" onClick="{{ closePrefs }}" style="align-self: flex-start; padding: var(--spacing-base) var(--spacing-m); background: var(--btn-primary-bg); color: var(--btn-primary-text); border: none; cursor: pointer; font-size: var(--font-size-s); font-weight: 500;"><span data-flair-shard aria-hidden="true"><span></span></span>Show me the changes</button>
-      <button type="button" onClick="{{ clearSaved }}" style="align-self: flex-start; background: none; border: none; padding: 0; cursor: pointer; color: var(--type-body); font-size: var(--font-size-xs); text-decoration: underline; text-wrap: pretty;">Start the whole journey again</button>
-    </div>
-  </div>
-</div>
-</sc-if>
-
 <sc-if value="{{ lightboxOpen }}" hint-placeholder-val="{{ false }}">
 <div style="position: fixed; inset: 0; z-index: 95; display: flex; align-items: center; justify-content: center; padding: var(--spacing-base);">
   <button type="button" aria-label="Close" onClick="{{ closeLightbox }}" style="position: absolute; inset: 0; background: rgba(12,12,12,0.85); border: none; cursor: pointer;"></button>
@@ -1388,7 +1350,6 @@ class Component extends DCLogic {
     scores: {},
     preview: null,
     profile: { interest: null, interests: [], subject: null, subjects: [], level: 'ug', userType: 'uk', country: 'United Kingdom', entryYear: 'September 2027', firstName: '', email: '', consent: false },
-    prefsOpen: false,
     ctaDismissed: false,
     activeSection: 'home',
     progress: 0,
@@ -2432,10 +2393,6 @@ class Component extends DCLogic {
     });
   }
 
-  optionStyle(active) {
-    return active ? { bg: '#ffffff', fg: '#0c0c0c', border: '#ffffff' } : { bg: 'transparent', fg: 'var(--btn-secondary-text)', border: 'var(--btn-secondary-border)' };
-  }
-
   renderVals() {
     const st = this.state;
     const p = st.profile;
@@ -2576,42 +2533,6 @@ class Component extends DCLogic {
     const lb = st.lightbox;
     const lbCourse = lb && lb.kind === 'course' ? lb.course : null;
 
-    const prefsGroups = [
-      { label: 'Interest area', options: this.INTERESTS.map((i) => {
-        const active = (p.interest || inter.id) === i.id;
-        const s = this.optionStyle(active);
-        return { label: i.name, bg: s.bg, fg: s.fg, border: s.border, pick: () => { const first = this.subjectsFor(i.id)[0]; this.setProfile({ interest: i.id, subject: first ? first.id : p.subject }); } };
-      }) },
-      { label: 'Subject', options: this.subjectsFor(p.interest || inter.id).map((s) => {
-        const active = p.subject === s.id;
-        const sty = this.optionStyle(active);
-        return { label: s.name, bg: sty.bg, fg: sty.fg, border: sty.border, pick: () => this.setProfile({ subject: s.id }) };
-      }) },
-      { label: 'Study level', locked: true, lockNote: 'Set when you built this prospectus. Start again to change it.', options: [{ v: 'ug', l: 'Undergraduate' }, { v: 'pgt', l: 'Postgraduate taught' }].map((o) => {
-        const sty = this.optionStyle(p.level === o.v);
-        return { label: o.l, bg: sty.bg, fg: sty.fg, border: sty.border, pick: () => this.setProfile({ level: o.v }) };
-      }) },
-      { label: 'This prospectus is for', locked: true, options: this.AUDIENCES.map((a) => {
-        const sty = this.optionStyle(p.userType === a.id);
-        return { label: a.name, bg: sty.bg, fg: sty.fg, border: sty.border, pick: () => this.setProfile({ userType: a.id, country: (a.id === 'intl' || a.id === 'agent') ? (p.country === 'United Kingdom' ? 'India' : p.country) : 'United Kingdom' }) };
-      }) },
-      { label: 'Starting', locked: true, options: this.ENTRY_YEARS.map((y) => {
-        const sty = this.optionStyle(p.entryYear === y);
-        return { label: y, bg: sty.bg, fg: sty.fg, border: sty.border, pick: () => this.setProfile({ entryYear: y }) };
-      }) }
-    ];
-
-    if (p.userType === 'intl' || p.userType === 'agent') {
-      prefsGroups.push({
-        label: p.userType === 'agent' ? 'Market you work in' : 'Applying from',
-        locked: true,
-        options: this.CORE_MARKETS.concat(this.OTHER_MARKETS).map((c) => {
-          const sty = this.optionStyle(p.country === c);
-          return { label: c, bg: sty.bg, fg: sty.fg, border: sty.border, pick: () => this.setProfile({ country: c }) };
-        })
-      });
-    }
-
     return {
       isOnboarding: st.screen !== 'prospectus',
       onLanding: st.screen === 'landing',
@@ -2713,7 +2634,6 @@ class Component extends DCLogic {
       onStep3: st.screen === 'steps' && st.step === 3,
       onStep4: st.screen === 'steps' && st.step === 4,
       onProspectus: st.screen === 'prospectus',
-      prefsOpen: st.prefsOpen,
       wide: st.wide,
       narrow: !st.wide,
       shellCols: st.wide ? 'minmax(0, 1fr) 320px' : 'minmax(0, 1fr)',
@@ -2722,12 +2642,12 @@ class Component extends DCLogic {
       beginLabel: (st.saved && st.saved.completed && st.saved.subject) ? 'Start again' : 'Get started',
       savedGreeting: st.saved && st.saved.firstName ? 'Welcome back, ' + st.saved.firstName + '. Your prospectus is where you left it.' : 'You have a saved prospectus on this device.',
       resume: () => this.setState({ profile: Object.assign({}, this.state.profile, st.saved), screen: 'prospectus' }),
-      clearSaved: () => { try { window.localStorage.removeItem(this.KEY); } catch (e) {} this.setState({ saved: null, prefsOpen: false, screen: 'landing', step: 1, discoveryIdx: -1, scores: {}, preview: null, profile: { interest: null, subject: null, level: 'ug', userType: 'uk', country: 'United Kingdom', entryYear: 'September 2027', firstName: '', email: '', consent: false } }); },
+      clearSaved: () => { try { window.localStorage.removeItem(this.KEY); } catch (e) {} this.setState({ saved: null, screen: 'landing', step: 1, discoveryIdx: -1, scores: {}, preview: null, profile: { interest: null, subject: null, level: 'ug', userType: 'uk', country: 'United Kingdom', entryYear: 'September 2027', firstName: '', email: '', consent: false } }); },
 
       goHome: () => {
         if (this.io) { this.io.disconnect(); this.io = null; }
         const saved = (st.screen === 'prospectus' && p.subject) ? Object.assign({}, p, { completed: true }) : st.saved;
-        this.setState({ screen: 'landing', step: 1, discoveryIdx: -1, prefsOpen: false, lightbox: null, saved: saved });
+        this.setState({ screen: 'landing', step: 1, discoveryIdx: -1, lightbox: null, saved: saved });
         if (typeof window !== 'undefined') window.scrollTo(0, 0);
       },
       begin: () => this.setState({ screen: 'steps', step: 1, discoveryIdx: -1, editing: false }),
@@ -2908,7 +2828,6 @@ class Component extends DCLogic {
         hover: 'background: var(--btn-hover-bg); color: var(--btn-hover-text); border-color: var(--btn-hover-border);'
       })),
 
-      openPrefs: () => this.setState({ prefsOpen: true }),
       drawerOpen: !!st.drawerOpen && !st.wide,
       showChoicesBtn: !st.wide && !st.readOnly,
       openDrawer: () => this.setState({ drawerOpen: true, drawerClosing: false }),
@@ -2918,19 +2837,10 @@ class Component extends DCLogic {
       navItemFlex: st.phone ? '0 0 auto' : '1 1 0%',
       navGap: st.phone ? 'var(--spacing-base)' : '0px',
       navCol: st.wide ? '2' : '1 / -1',
-      editChoices: () => this.setState({ screen: 'steps', step: 2, editing: true, prefsOpen: false, drawerOpen: false, lightbox: null }, () => { if (typeof window !== 'undefined') window.scrollTo(0, 0); }),
+      editChoices: () => this.setState({ screen: 'steps', step: 2, editing: true, drawerOpen: false, lightbox: null }, () => { if (typeof window !== 'undefined') window.scrollTo(0, 0); }),
       detailsLocked: !!st.editing,
       detailsPointer: st.editing ? 'none' : 'auto',
       detailsOpacity: st.editing ? '0.45' : '1',
-      closePrefs: () => this.setState({ prefsOpen: false }, () => this.save()),
-      prefsGroups: prefsGroups.map((g) => ({
-        label: g.label,
-        locked: !!g.locked,
-        editable: !g.locked,
-        lockedValue: g.locked ? ((g.options.filter((o) => o.bg !== 'transparent')[0] || {}).label || '') : '',
-        options: g.options
-      })),
-
       homeHeading: name ? name + ', this one is yours.' : 'This one is yours.',
       homeBody: 'This is your digital prospectus. Everything here follows the choices you made \u2014 open Your choices any time to change them. Five sections, no course catalogue to wade through.',
       welcomeIntro: isStudent
@@ -3096,9 +3006,8 @@ class Component extends DCLogic {
       lbCourseSummary: lbCourse ? (lbCourse.summary || []) : [],
       canEdit: !st.readOnly,
       isReadOnly: !!st.readOnly,
-      buildYourOwn: () => this.setState({ readOnly: false, screen: 'landing', step: 1, discoveryIdx: -1, lightbox: null, prefsOpen: false }, () => { if (typeof window !== 'undefined') window.scrollTo(0, 0); }),
+      buildYourOwn: () => this.setState({ readOnly: false, screen: 'landing', step: 1, discoveryIdx: -1, lightbox: null }, () => { if (typeof window !== 'undefined') window.scrollTo(0, 0); }),
       chipLabel: st.readOnly ? 'Shared with you' : 'Your prospectus',
-      chipAction: st.readOnly ? (() => this.setState({ lightbox: { kind: 'share' } })) : (() => this.setState({ prefsOpen: true })),
       closingSecondaryLabel: st.readOnly ? 'Save a copy of this' : 'Save or share this',
       lbIsShare: !!lb && lb.kind === 'share',
       openShare: () => this.setState({ lightbox: { kind: 'share' }, shareSent: false, copied: false }),
