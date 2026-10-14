@@ -125,6 +125,14 @@
   [data-rail-arrow] > [data-flair-shard] > span { width: 800%; }
   [data-pip] { height: 4px; background: var(--type-heading); border: none; padding: 0; cursor: pointer; flex-shrink: 0; transition: width 0.3s ease; }
   [data-slice-head] { padding-bottom: var(--spacing-heading-gap); }
+  [data-event-list] { display: flex; flex-direction: column; }
+  [data-event-list] > li { border-top: var(--borders-border-line) solid var(--primary-border); }
+  [data-event-list] > li:last-child { border-bottom: var(--borders-border-line) solid var(--primary-border); }
+  [data-event-list] > li > a { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: var(--spacing-base) var(--spacing-m); align-items: center; padding: var(--spacing-m) 0; text-decoration: none; }
+  [data-event-thumb] { position: relative; display: block; width: 100%; aspect-ratio: 16 / 10; overflow: hidden; }
+  [data-event-main] { display: flex; flex-direction: column; gap: var(--spacing-2xs); min-width: 0; }
+  @media (max-width: 1100px) { [data-event-list] > li > a { grid-template-columns: 168px minmax(0, 1fr); } }
+  @media (max-width: 640px) { [data-event-list] > li > a { grid-template-columns: 108px minmax(0, 1fr); gap: var(--spacing-sm); } }
   [data-course-list] { display: flex; flex-direction: column; }
   [data-course-list] > li { border-top: var(--borders-border-line) solid var(--primary-border); }
   [data-course-list] > li:last-child { border-bottom: var(--borders-border-line) solid var(--primary-border); }
@@ -762,16 +770,24 @@
         <sc-if value="{{ hasEvents }}" hint-placeholder-val="{{ true }}">
         <div data-reveal="up" style="display: flex; flex-direction: column; gap: var(--spacing-base);">
           <h3 style="margin-bottom: calc(var(--spacing-heading-gap) - var(--spacing-base)); font-size: var(--font-size-3xl); font-weight: 600; line-height: 1.05; color: var(--type-heading); max-width: 70%; text-wrap: pretty;">Come and see us</h3>
-          <ul data-reveal="up" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: var(--spacing-base);">
+          <ul data-event-list>
             <sc-for list="{{ events }}" as="e" hint-placeholder-count="3">
-              <li style="border-top: var(--borders-border-line) solid var(--neutral); padding-top: var(--spacing-base); display: flex; flex-direction: column; gap: var(--spacing-xs);">
-                <div style="display: flex; align-items: center; gap: var(--spacing-2xs);">
-                  <div data-teaser-marker style="width: 16px; height: 8px; background: var(--primary-accent); flex-shrink: 0;"></div>
-                  <span style="font-size: var(--font-size-2xs); letter-spacing: 0.1em; text-transform: uppercase; color: var(--type-body); font-weight: 500; text-wrap: pretty;">{{ e.kind }}</span>
-                </div>
-                <p data-teaser-title style="font-size: var(--font-size-l); font-weight: 600; color: var(--type-teaser-headings); line-height: 1.2; text-wrap: balance;">{{ e.date }}</p>
-                <p style="font-size: var(--font-size-s); color: var(--type-body); line-height: 1.4; text-wrap: pretty;">{{ e.title }}</p>
-                <a href="https://www.aston.ac.uk/study/open-days" target="_blank" rel="noreferrer" style="display: inline-flex; align-items: center; min-height: 44px; font-size: var(--font-size-s); font-weight: 500;">{{ e.action }}</a>
+              <li data-teaser>
+                <a href="https://www.aston.ac.uk/study/open-days" target="_blank" rel="noreferrer">
+                  <span data-event-thumb>
+                    <span data-teaser-img role="img" aria-label="{{ e.alt }}" style="display: block; width: 100%; height: 100%; background-image: {{ e.imgCss }}; background-size: cover; background-position: center;"></span>
+                    <span data-teaser-flair aria-hidden="true"><span data-arrow-slide aria-hidden="true"><i></i><i></i></span></span>
+                  </span>
+                  <span data-event-main>
+                    <span style="display: flex; align-items: center; gap: var(--spacing-2xs);">
+                      <span data-teaser-marker style="width: 16px; height: 8px; background: var(--primary-accent); flex-shrink: 0;"></span>
+                      <span style="font-size: var(--font-size-2xs); letter-spacing: 0.1em; text-transform: uppercase; color: var(--type-body); font-weight: 500;">{{ e.kind }}</span>
+                    </span>
+                    <span data-teaser-title style="font-size: var(--font-size-l); font-weight: 600; color: var(--type-teaser-headings); line-height: 1.2; text-wrap: balance;">{{ e.date }}</span>
+                    <span style="font-size: var(--font-size-s); color: var(--type-body); line-height: 1.4; text-wrap: pretty;">{{ e.title }}</span>
+                    <span style="font-size: var(--font-size-s); font-weight: 500; color: var(--interactive); text-decoration: underline; text-underline-offset: 3px;">{{ e.action }}</span>
+                  </span>
+                </a>
               </li>
             </sc-for>
           </ul>
@@ -2494,12 +2510,12 @@ class Component extends DCLogic {
 
     const events = [];
     if (ug) {
-      events.push({ kind: 'Undergraduate open day', date: 'Saturday 4 July 2026', title: 'Tour the campus, meet the ' + subj.short + ' team and sit in on a taster session.', action: 'Book your place' });
-      events.push({ kind: 'Undergraduate open day', date: 'Saturday 3 October 2026', title: 'Our biggest autumn open day, with subject talks running all afternoon.', action: 'Book your place' });
-      events.push({ kind: intl ? 'Online webinar' : 'Subject webinar', date: 'Wednesday 14 October 2026', title: subj.webinar + (intl ? ' for international applicants' : ''), action: 'Register' });
+      events.push({ kind: 'Undergraduate open day', img: 'campusSkyline', date: 'Saturday 4 July 2026', title: 'Tour the campus, meet the ' + subj.short + ' team and sit in on a taster session.', action: 'Book your place' });
+      events.push({ kind: 'Undergraduate open day', img: 'cohortEvent', date: 'Saturday 3 October 2026', title: 'Our biggest autumn open day, with subject talks running all afternoon.', action: 'Book your place' });
+      events.push({ kind: intl ? 'Online webinar' : 'Subject webinar', img: 'lectureLaptops', date: 'Wednesday 14 October 2026', title: subj.webinar + (intl ? ' for international applicants' : ''), action: 'Register' });
     } else {
-      events.push({ kind: 'Postgraduate open evening', date: 'Wednesday 11 November 2026', title: 'Meet course directors and ask about funding, timetables and study alongside work.', action: 'Book your place' });
-      events.push({ kind: 'Online webinar', date: 'Wednesday 14 October 2026', title: subj.webinar + (intl ? ' for international applicants' : ''), action: 'Register' });
+      events.push({ kind: 'Postgraduate open evening', img: 'conferenceTalk', date: 'Wednesday 11 November 2026', title: 'Meet course directors and ask about funding, timetables and study alongside work.', action: 'Book your place' });
+      events.push({ kind: 'Online webinar', img: 'presenting', date: 'Wednesday 14 October 2026', title: subj.webinar + (intl ? ' for international applicants' : ''), action: 'Register' });
     }
 
     const scholarships = [];
@@ -2971,7 +2987,11 @@ class Component extends DCLogic {
       })),
 
       heroCtaLabel: heroCta.label, heroCtaTitle: heroCta.title, heroCtaBody: heroCta.body, heroCtaAction: heroCta.action, heroCtaHref: heroCta.href,
-      hasEvents: events.length > 0, events: events,
+      hasEvents: events.length > 0,
+      events: events.map((e) => Object.assign({}, e, {
+        imgCss: (this.IMG[e.img] ? 'url("' + this.IMG[e.img] + '")' : 'none'),
+        alt: e.kind + ' \u2014 ' + e.date
+      })),
       hasScholarships: scholarships.length > 0, scholarships: scholarships,
       scholarshipNote: intl ? 'Awards you could be eligible for, shown because you are applying from ' + p.country + ' at ' + levelWord + ' level.' : 'Awards you could be eligible for, shown because you are applying from the UK at ' + levelWord + ' level.',
       applyAdvice: (() => { const ic = this.icoSet(applyAdvice, (a) => a.title + ' ' + a.detail); return applyAdvice.map((a, i) => ({ title: a.title, detail: a.detail, iconPaths: ic[i], href: a.href || 'https://www.aston.ac.uk/study/how-to-apply' })); })(),
