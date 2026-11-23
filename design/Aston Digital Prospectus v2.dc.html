@@ -1336,7 +1336,7 @@
   </div>
 </div>
 </sc-if></x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;ambientYouTubeId&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;JUBbBlxrCh4&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;ambientVideoSrc&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;showRuleNotes&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Review options&quot;},&quot;startScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;landing&quot;,&quot;prospectus&quot;],&quot;default&quot;:&quot;landing&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Review options&quot;},&quot;wideBreakpoint&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:1024,&quot;min&quot;:600,&quot;max&quot;:1600,&quot;step&quot;:8,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Review options&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;ambientYouTubeId&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;ambientVideoSrc&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;showRuleNotes&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Review options&quot;},&quot;startScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;landing&quot;,&quot;prospectus&quot;],&quot;default&quot;:&quot;landing&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Review options&quot;},&quot;wideBreakpoint&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:1024,&quot;min&quot;:600,&quot;max&quot;:1600,&quot;step&quot;:8,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Review options&quot;}}">
 class Component extends DCLogic {
   state = {
     screen: 'landing',
@@ -2530,7 +2530,9 @@ class Component extends DCLogic {
     };
 
     const ambientFile = (this.props.ambientVideoSrc || '').trim();
-    const ambientId = (this.props.ambientYouTubeId === undefined ? 'JUBbBlxrCh4' : this.props.ambientYouTubeId).trim();
+    // Empty by default: a YouTube embed serves unskippable ads behind the hero.
+    // Set ambientVideoSrc to a self-hosted file, or paste an id back in here.
+    const ambientId = (this.props.ambientYouTubeId || '').trim();
 
     const lb = st.lightbox;
     const lbCourse = lb && lb.kind === 'course' ? lb.course : null;
